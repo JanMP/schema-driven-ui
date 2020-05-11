@@ -1,0 +1,310 @@
+{ 
+  "_id" : ObjectId("5e82dc0caed03b5ede963762"), 
+  "fallId" : "5e78cf3ba6b6528e4accef9d", 
+  "ND" : [
+      {
+          "ICD-Kode" : "A41.8", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "B22", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "E87.6", 
+          "w" : 0.12
+      }, 
+      {
+          "ICD-Kode" : "E87.6X", 
+          "w" : 0.12
+      }, 
+      {
+          "ICD-Kode" : "F16.1", 
+          "w" : 0.5
+      }
+  ], 
+  "HD" : [
+      {
+          "ICD-Kode" : "A41.0", 
+          "w" : 0.49
+      }, 
+      {
+          "ICD-Kode" : "A41.1", 
+          "w" : 0.28
+      }, 
+      {
+          "ICD-Kode" : "A41.2", 
+          "w" : 0.49
+      }, 
+      {
+          "ICD-Kode" : "A41.3", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.4", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.52", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "E87.6", 
+          "w" : 0.3
+      }
+  ]
+}
+{ 
+  "_id" : ObjectId("5e82dc0caed03b5ede963763"), 
+  "fallId" : "5e78cf3ba6b6528e4accf103", 
+  "ND" : [
+      {
+          "ICD-Kode" : "A41.8", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "B22", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "F16.1", 
+          "w" : 0.5
+      }
+  ], 
+  "HD" : [
+      {
+          "ICD-Kode" : "A40.9", 
+          "w" : 0.48
+      }, 
+      {
+          "ICD-Kode" : "A41.0", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.1", 
+          "w" : 0.36
+      }, 
+      {
+          "ICD-Kode" : "A41.2", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.3", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.4", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.52", 
+          "w" : 0.5
+      }
+  ]
+}
+{ 
+  "_id" : ObjectId("5e82dc0caed03b5ede963764"), 
+  "fallId" : "5e78cf3ca6b6528e4accf72b", 
+  "ND" : [
+      {
+          "ICD-Kode" : "E87.6", 
+          "w" : 0.14
+      }
+  ], 
+  "HD" : [
+
+  ]
+}
+{ 
+  "_id" : ObjectId("5e82dc0caed03b5ede963765"), 
+  "fallId" : "5e78cf3fa6b6528e4accfa7a", 
+  "ND" : [
+      {
+          "ICD-Kode" : "K92.1", 
+          "w" : 0.24
+      }
+  ], 
+  "HD" : [
+
+  ]
+}
+{ 
+  "_id" : ObjectId("5e82dc0caed03b5ede963766"), 
+  "fallId" : "5e78cf3fa6b6528e4accfdf7", 
+  "ND" : [
+      {
+          "ICD-Kode" : "A41.8", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "B21", 
+          "w" : 0.45
+      }, 
+      {
+          "ICD-Kode" : "B22", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "E87.6", 
+          "w" : 0.17
+      }, 
+      {
+          "ICD-Kode" : "F16.1", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "K92.2", 
+          "w" : 0.43
+      }
+  ], 
+  "HD" : [
+      {
+          "ICD-Kode" : "A40.9", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.0", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.1", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.2", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.3", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.4", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.52", 
+          "w" : 0.5
+      }
+  ]
+}
+{ 
+  "_id" : ObjectId("5e82dc0caed03b5ede963767"), 
+  "fallId" : "5e78cf3fa6b6528e4acd00fd", 
+  "ND" : [
+      {
+          "ICD-Kode" : "A02.0", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "E87.6", 
+          "w" : 0.27
+      }
+  ], 
+  "HD" : [
+
+  ]
+}
+{ 
+  "_id" : ObjectId("5e82dc0caed03b5ede963768"), 
+  "fallId" : "5e78cf3fa6b6528e4acd012d", 
+  "ND" : [
+      {
+          "ICD-Kode" : "E87.6", 
+          "w" : 0.15
+      }
+  ], 
+  "HD" : [
+
+  ]
+}
+{ 
+  "_id" : ObjectId("5e82dc0caed03b5ede963769"), 
+  "fallId" : "5e78cf3fa6b6528e4acd04a4", 
+  "ND" : [
+      {
+          "ICD-Kode" : "A41.0", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.58", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.8", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.9", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "C79.9", 
+          "w" : 0.5
+      }
+  ], 
+  "HD" : [
+      {
+          "ICD-Kode" : "A40.3", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.4", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.51", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.52", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.58", 
+          "w" : 0.5
+      }, 
+      {
+          "ICD-Kode" : "A41.8", 
+          "w" : 0.5
+      }
+  ]
+}
+{ 
+  "_id" : ObjectId("5e82dc0caed03b5ede96376a"), 
+  "fallId" : "5e78cf3fa6b6528e4acd04ac", 
+  "ND" : [
+      {
+          "ICD-Kode" : "A04.7071727379", 
+          "w" : 0.21
+      }, 
+      {
+          "ICD-Kode" : "D63.0", 
+          "w" : 0.32
+      }, 
+      {
+          "ICD-Kode" : "K92.2", 
+          "w" : 0.15
+      }
+  ], 
+  "HD" : [
+
+  ]
+}
+{ 
+  "_id" : ObjectId("5e82dc0caed03b5ede96376b"), 
+  "fallId" : "5e78cf42a6b6528e4acd0ed2", 
+  "ND" : [
+      {
+          "ICD-Kode" : "B37.0", 
+          "w" : 0.14
+      }, 
+      {
+          "ICD-Kode" : "K92.2", 
+          "w" : 0.3
+      }
+  ], 
+  "HD" : [
+
+  ]
+}

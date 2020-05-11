@@ -1,0 +1,87 @@
+import publishTableData from './publishTableData'
+import createTableDataMethods from './createTableDataMethods'
+import createDefaultPipeline from './createDefaultPipeline'
+
+
+
+export default createAutoDataTableBackend = (definition) ->
+  {
+    viewTableRole
+    editRole
+    exportTableRole
+    sourceName, sourceSchema, collection
+    useObjectIds
+    canEdit, formSchema,
+    makeFormDataFetchMethodRunFkt, makeSubmitMethodRunFkt, makeDeleteMethodRunFkt
+    canSearch
+    canAdd
+    canDelete
+    canExport
+    usePubSub
+    rowsCollection, rowCountCollection
+    listSchema
+    getPreSelectPipeline
+    pipelineMiddle, getRowsPipeline, getRowCountPipeline, getExportPipeline
+    redrawTrigger
+  } = definition
+
+  unless sourceName?
+    throw new Error 'no sourceName given'
+
+  unless sourceSchema?
+    throw new Error 'no sourceSchema given'
+
+  unless viewTableRole?
+    viewTableRole = 'fnord'
+    console.warn "no viewTableRole defined for AutoDataTableBackend #{sourceName}, using '#{viewTableRole}' instead."
+
+  if canEdit and not editRole?
+    editRole = 'fnord'
+    console.warn "no editRole defined for AutoDataTableBackend #{sourceName}, using '#{viewTableRole}' instead."
+
+  if canExport and not exportTableRole?
+    exportTableRole = viewTableRole ?
+    console.warn "no exportTableRole defined for AutoDataTableBackend #{sourceName}, using '#{viewTableRole}' instead."
+
+  formSchema ?= sourceSchema
+  listSchema ?= sourceSchema
+
+  {defaultGetRowsPipeline
+  defaultGetRowCountPipeline
+  defaultGetExportPipeline} = createDefaultPipeline {getPreSelectPipeline, pipelineMiddle, listSchema}
+
+  getRowsPipeline ?= defaultGetRowsPipeline
+  getRowCountPipeline ?= defaultGetRowCountPipeline
+  getExportPipeline ?= defaultGetExportPipeline
+
+  if usePubSub
+    if Meteor.isClient
+      rowsCollection ?= new Mongo.Collection "#{sourceName}.rows"
+      rowCountCollection ?= new Mongo.Collection "#{sourceName}.count"
+    
+    publishTableData {
+      viewTableRole, sourceName, collection,
+      getRowsPipeline, getRowCountPipeline,
+    }
+
+  createTableDataMethods {
+    viewTableRole, editRole, exportTableRole, sourceName, collection, useObjectIds,
+    getRowsPipeline, getRowCountPipeline, getExportPipeline
+    canEdit, canDelete, canExport, formSchema, makeFormDataFetchMethodRunFkt, makeSubmitMethodRunFkt
+  }
+
+
+  #return props for the ui component
+  {
+    sourceName, listSchema, formSchema
+    usePubSub, rowsCollection, rowCountCollection
+    canEdit
+    canSearch
+    canAdd
+    canDelete
+    canExport
+    viewTableRole
+    editRole
+    exportTableRole
+    redrawTrigger
+  }

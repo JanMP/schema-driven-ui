@@ -12,7 +12,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.10.1');
-  api.use('coffeescript');
+  api.use('coffeescript@2.4.1');
   api.use('ecmascript');
   api.mainModule('schema-driven-ui.js');
 });
