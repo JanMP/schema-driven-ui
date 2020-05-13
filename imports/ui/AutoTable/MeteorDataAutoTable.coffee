@@ -1,6 +1,6 @@
 import {Mongo} from 'meteor/mongo'
 import React, {useState, useEffect} from 'react'
-import meteorApply from '/imports/helpers/meteorApply'
+import meteorApply from 'meteor/janmp:schema-driven-ui/imports/helpers/meteorApply'
 import AutoTable from './AutoTable'
 import FormModal from './FormModal'
 import {Button, Icon, Modal, Table} from 'semantic-ui-react'
