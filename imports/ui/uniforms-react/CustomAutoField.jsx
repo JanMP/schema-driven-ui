@@ -1,6 +1,6 @@
 import { createElement } from 'react';
 import invariant from 'invariant';
-import moment from 'moment';
+// import moment from 'moment';
 
 import BaseField from 'uniforms/BaseField'
 import { RadioField, ListField, NumField, BoolField, TextField } from 'uniforms-semantic';

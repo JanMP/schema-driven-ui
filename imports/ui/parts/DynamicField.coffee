@@ -1,6 +1,6 @@
 import React from 'react'
-import AutoForm from '/imports/ui/uniforms-react/AutoFormWrapper'
-import AutoField from '/imports/ui/uniforms-react/CustomAutoField'
+import AutoForm from '../uniforms-react/AutoFormWrapper'
+import AutoField from '../uniforms-react/CustomAutoField'
 import connectField from 'uniforms/connectField'
 
 #Todo: find a better place in the file structure for this
