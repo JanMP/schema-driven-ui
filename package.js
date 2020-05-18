@@ -12,8 +12,6 @@ Package.describe({
 
 Npm.depends({
   "papaparse": "5.0.0",
-  "react": "16.5.0",
-  "react-dom": "16.5.0",
   "react-toastify": "5.4.0",
   "semantic-ui-calendar-react": "0.15.3",
   "semantic-ui-css": "2.4.1",
@@ -27,7 +25,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.10.1');
   api.use('coffeescript@2.4.1');
   api.use('ecmascript');
-  api.use('alanning:roles');
+  api.use('alanning:roles@3.2.2');
   api.use('mdg:validated-method');
   api.use('momentjs:moment');
   api.use('tunguska:reactive-aggregate');

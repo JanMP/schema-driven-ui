@@ -2,8 +2,8 @@ import {Meteor} from 'meteor/meteor'
 import {Mongo} from 'meteor/mongo'
 import {ValidatedMethod} from 'meteor/mdg:validated-method'
 import SimpleSchema from 'simpl-schema'
-import schemaWithId from '/imports/helpers/schemaWithId'
-import {currentUserMustBeInRole} from '/imports/api/roleChecks'
+import schemaWithId from '../../helpers/schemaWithId'
+import {currentUserMustBeInRole} from '../../helpers/roleChecks'
 
 import _ from 'lodash'
 
