@@ -11,14 +11,15 @@ Package.describe({
 });
 
 Npm.depends({
-  "papaparse": "5.0.0",
-  "react-toastify": "5.4.0",
-  "semantic-ui-calendar-react": "0.15.3",
-  "semantic-ui-css": "2.4.1",
-  "semantic-ui-react": "0.88.2",
-  "uniforms": "2.5.0",
-  "uniforms-bridge-simple-schema-2": "2.5.0",
-  "uniforms-semantic": "2.5.0",
+  // "react": "16.13.1",
+  // "papaparse": "5.0.0",
+  // "react-toastify": "5.4.0",
+  // "semantic-ui-calendar-react": "0.15.3",
+  // "semantic-ui-css": "2.4.1",
+  // "semantic-ui-react": "0.88.2",
+  // "uniforms": "2.5.0",
+  // "uniforms-bridge-simple-schema-2": "2.5.0",
+  // "uniforms-semantic": "2.5.0",
 })
 
 Package.onUse(function(api) {
