@@ -4,10 +4,9 @@ import SimpleSchema from 'simpl-schema'
 import React, {Fragment, useState} from 'react'
 # import { withRouter } from 'react-router-dom'
 import { Button, Dropdown, Form, Header, Icon, Menu, Message, Modal } from 'semantic-ui-react'
-import withCurrentUser from '/imports/ui/parts/withCurrentUser'
-import FormModal from '/imports/ui/AutoTable/FormModal'
-import ErrorModal from '/imports/ui/AutoTable/ErrorModal'
-import IKMenuItem from './IKMenuItem'
+import withCurrentUser from '../parts/withCurrentUser'
+import FormModal from '../AutoTable/FormModal'
+import ErrorModal from '../AutoTable/ErrorModal'
 
 export default withCurrentUser ({currentUser}) ->
 
@@ -68,7 +67,6 @@ export default withCurrentUser ({currentUser}) ->
 
   <Fragment>
     <Menu.Menu position='right'>
-      {if currentUser? then <IKMenuItem />}
       <Dropdown item text={if currentUser? then currentUser.username else 'Login'}>
         <Dropdown.Menu>
           {

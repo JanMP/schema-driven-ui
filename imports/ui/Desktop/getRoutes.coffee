@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import appRouterItems from './menuDefinition'
-import {useCurrentUserIsInRole} from '/imports/api/roleChecks'
+import {useCurrentUserIsInRole} from '../../helpers/roleChecks'
 import {Message} from 'semantic-ui-react'
 import AccessDenied from './AccessDenied'
 
-export default getRoutes = ->
-  appRouterItems.map (route) ->
+export default getRoutes = ({menuDefinitions}) ->
+  
+  menuDefinitions.map (route) ->
     routePermitted =
       if route.role?
         useCurrentUserIsInRole route.role

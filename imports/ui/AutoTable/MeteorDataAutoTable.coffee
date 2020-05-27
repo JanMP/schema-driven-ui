@@ -13,7 +13,6 @@ import Papa from 'papaparse'
 import downloadAsFile from '../../helpers/downloadAsFile'
 import _ from 'lodash'
 
-console.log useState
 
 export default MeteorDataAutoTable = (props) ->
   {

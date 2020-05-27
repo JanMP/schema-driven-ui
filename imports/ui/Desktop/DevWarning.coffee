@@ -1,6 +1,6 @@
 import React from 'react'
 import {Container, Header, Icon, Label, Segment} from 'semantic-ui-react'
-import {useCurrentUserIsInRole} from '/imports/api/roleChecks'
+import {useCurrentUserIsInRole} from '../../helpers/roleChecks'
 
 export default DevWarning = ->
   return null if Meteor.isProduction or useCurrentUserIsInRole 'dev_view'

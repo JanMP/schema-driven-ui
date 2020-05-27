@@ -5,9 +5,12 @@ import Desktop from './Desktop'
 import getRoutes from './getRoutes'
 
 
-export default AppRouter = ->
+export default AppRouter = ({menuDefinitions}) ->
 
-  routes = getRoutes()
+  unless menuDefinitions?
+    throw new Error 'menuDefinitions not defined'
+
+  routes = getRoutes({menuDefinitions})
 
   routesWithoutDesktop =
     routes
@@ -19,12 +22,19 @@ export default AppRouter = ->
     routes
     .filter (route) -> not route.openInNewWindow
     .map (route, index) ->
-      <Route key={index} path={route.path} exact={route.exactPath} component={Desktop}/>
+      <Route
+        key={index}
+        path={route.path}
+        exact={route.exactPath}
+        render={-> <Desktop menuDefinitions={menuDefinitions}/>}
+      >
+        
+      </Route>
 
-  <Router>
+  <Router context={menuDefinitions}>
     <Switch>
       {routesWithoutDesktop}
       {routesWithDesktop}
-      <Route path="*" component={Desktop}/>
+      <Route path="*" render={-> <Desktop menuDefinitions={menuDefinitions}/>}/>
     </Switch>
   </Router>

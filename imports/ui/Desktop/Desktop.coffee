@@ -1,7 +1,7 @@
 import {Meteor} from 'meteor/meteor'
 
 import React, {useState, useEffect} from 'react'
-import styled from 'styled-components'
+# import styled from 'styled-components'
 
 import {BrowserRouter as Router, Route, Switch, NavLink} from 'react-router-dom'
 import {Menu, Container, Icon, Message} from 'semantic-ui-react'
@@ -13,9 +13,14 @@ import AccountsMenuItem from './AccountsMenuItem'
 import DevWarning from './DevWarning'
 
 
-export default Desktop = ->
+export default Desktop = (props) ->
+  
+  {menuDefinitions}=props
 
-  routes =  getRoutes()
+  unless menuDefinitions
+    throw new Error 'menuDefinitions is undefined'
+
+  routes =  getRoutes({menuDefinitions})
 
   unless routes?
     throw new Error 'AppRouter: no itmes prop'
