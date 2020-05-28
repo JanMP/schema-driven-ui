@@ -29,6 +29,7 @@ Package.onUse(function(api) {
   api.use('alanning:roles@3.2.2');
   api.use('mdg:validated-method');
   api.use('momentjs:moment');
+  api.use('peerlibrary:reactive-publish')
   api.use('tunguska:reactive-aggregate');
   api.mainModule('schema-driven-ui.js');
 });

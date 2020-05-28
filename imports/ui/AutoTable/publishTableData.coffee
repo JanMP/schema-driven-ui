@@ -1,16 +1,16 @@
 import {Meteor} from 'meteor/meteor'
 import { ReactiveAggregate } from 'meteor/tunguska:reactive-aggregate'
-import {Roles} from 'meteor/alanning:roles'
+import {userWithIdIsInRole} from '../../helpers/roleChecks'
 
 export default publishTableData = ({viewTableRole, sourceName, collection,
 getRowsPipeline, getRowCountPipeline})  ->
   if Meteor.isServer
-    
+  
     unless collection?
       throw new Error 'no collection given'
 
     Meteor.publish "#{sourceName}.rows", ({search, query, sort, limit, skip}) ->
-      return @ready() unless Roles.userIsInRole @userId, viewTableRole
+      return @ready() unless userWithIdIsInRole id: @userId, role: viewTableRole
       @autorun (computation) ->
         pipeline = getRowsPipeline {pub: this, search, query, sort, limit, skip}
         ReactiveAggregate this, collection,
@@ -20,7 +20,7 @@ getRowsPipeline, getRowCountPipeline})  ->
           debounceDelay: 500
    
     Meteor.publish "#{sourceName}.count", ({search, query = {}}) ->
-      return @ready() unless Roles.userIsInRole @userId, viewTableRole
+      return @ready() unless userWithIdIsInRole id: @userId, role: viewTableRole
       @autorun (computation) ->
         pipeline = getRowCountPipeline {pub: this, search , query}
         ReactiveAggregate this, collection,

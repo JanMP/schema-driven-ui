@@ -2,8 +2,10 @@ import React from 'react'
 import {Container, Header, Icon, Label, Segment} from 'semantic-ui-react'
 import {useCurrentUserIsInRole} from '../../helpers/roleChecks'
 
+turnedOff = true
+
 export default DevWarning = ->
-  return null if Meteor.isProduction or useCurrentUserIsInRole 'dev_view'
+  return null if turnedOff or Meteor.isProduction or useCurrentUserIsInRole 'dev_view'
 
   <Container style={marginBottom: '1rem'}>
     <Segment textAlign="center" color='red' inverted>

@@ -32,16 +32,16 @@ export default createAutoDataTableBackend = (definition) ->
     throw new Error 'no sourceSchema given'
 
   unless viewTableRole?
-    viewTableRole = 'fnord'
+    viewTableRole = 'any'
     console.warn "no viewTableRole defined for AutoDataTableBackend #{sourceName}, using '#{viewTableRole}' instead."
 
   if canEdit and not editRole?
-    editRole = 'fnord'
-    console.warn "no editRole defined for AutoDataTableBackend #{sourceName}, using '#{viewTableRole}' instead."
+    editRole = viewTableRole
+    console.warn "no editRole defined for AutoDataTableBackend #{sourceName}, using '#{editRole}' instead."
 
   if canExport and not exportTableRole?
-    exportTableRole = viewTableRole ?
-    console.warn "no exportTableRole defined for AutoDataTableBackend #{sourceName}, using '#{viewTableRole}' instead."
+    exportTableRole = viewTableRole
+    console.warn "no exportTableRole defined for AutoDataTableBackend #{sourceName}, using '#{exportTableRolea}' instead."
 
   formSchema ?= sourceSchema
   listSchema ?= sourceSchema

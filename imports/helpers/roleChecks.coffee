@@ -1,16 +1,17 @@
 import {Roles} from 'meteor/alanning:roles'
 import {useTracker} from 'meteor/react-meteor-data'
 
-
-export currentUserIsInRole =
-  (role) ->
-    switch role
-      when 'any'
+# use in subscriptions
+export userWithIdIsInRole = ({role, id}) ->
+  switch role
+    when 'any'
         true
       when 'logged-in'
-        Meteor.userId()?
+        id?
       else
-        Roles.userIsInRole Meteor.userId(), role
+        Roles.userIsInRole id, role
+    
+export currentUserIsInRole = (role) -> userWithIdIsInRole id: Meteor.userId(), role: role
 
 #for use in React Components
 export useCurrentUserIsInRole = (role) -> useTracker -> currentUserIsInRole role
