@@ -1,7 +1,7 @@
 import {Meteor} from 'meteor/meteor'
-import meteorApply from '/imports/helpers/meteorApply'
+import meteorApply from '../../helpers/meteorApply'
 import React, {useEffect, useState} from 'react'
-import connectWithFormField from '/imports/ui/parts/connectWithFormField'
+import connectWithFormField from './connectWithFormField'
 import {Dropdown} from 'semantic-ui-react'
 
 export default SearchQueryField = connectWithFormField ({value, onChange, method, placeholder}) ->

@@ -8,7 +8,7 @@ import PartIndex from './PartIndex'
 
 
 export default QueryBlockEditor = React.memo ({rule, partIndex, bridge, path, onChange, onRemove, onMove, isRoot}) ->
-
+  
   isRoot ?= false
   partIndex ?= ''
  

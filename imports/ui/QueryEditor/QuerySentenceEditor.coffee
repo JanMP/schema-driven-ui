@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from 'react'
-import AutoForm from '/imports/ui/uniforms-react/AutoFormWrapper'
-import AutoField from '/imports/ui/uniforms-react/CustomAutoField'
-import DynamicField from '/imports/ui/parts/DynamicField'
-import CodeListenSelect from '/imports/ui/parts/SearchQueryField'
+import AutoForm from '../uniforms-react/AutoFormWrapper'
+import AutoField from '../uniforms-react/CustomAutoField'
+import DynamicField from '../parts/DynamicField'
+import CodeListenSelect from '../parts/SearchQueryField'
 
 import SimpleSchema from 'simpl-schema'
 import { Button, Form, Icon, Input, Select } from 'semantic-ui-react'
@@ -10,6 +10,8 @@ import { getSubjectSelectOptions } from './subjects'
 import { predicateSelectOptions } from './predicates'
 import PartIndex from './PartIndex'
 import _ from 'lodash'
+
+import '../../helpers/autoTableSimpleSchemaExtension.coffee.md'
 
 Nothing = -> <span />
 

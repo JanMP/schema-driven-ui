@@ -1,22 +1,19 @@
 import React, {useState} from 'react'
 import QueryBlockEditor from './QueryBlockEditor'
 import {SimpleSchema2Bridge as Bridge} from 'uniforms-bridge-simple-schema-2'
-import PrettyPrint from '/imports/ui/parts/PrettyPrint'
 import { Segment } from 'semantic-ui-react'
 import {getNewBlock} from './queryEditorHelpers'
 import PartIndex from './PartIndex'
 import _ from 'lodash'
-import './queryEditor.styl'
+# import './queryEditor.styl'
 
 import testRule from './testRule'
 
-export default QueryEditor = React.memo ({schema, rule, path, onChange, showRule, attached = false}) ->
+export default QueryEditor = React.memo ({schema, rule, path, onChange, attached = false}) ->
 
   bridge = new Bridge schema, ->
 
   rule ?= getNewBlock {bridge, path: '', type: 'logicBlock'}
-
-  showRule ?= false
   path ?= ''
 
   deleteMarkedPartsOf = (theRule) ->
@@ -43,6 +40,7 @@ export default QueryEditor = React.memo ({schema, rule, path, onChange, showRule
 
 
   <Segment className="query-editor" attached={attached}>
+    <h1>QueryEditor</h1>
     <QueryBlockEditor
       rule={rule}
       partIndex={new PartIndex()}
@@ -52,5 +50,4 @@ export default QueryEditor = React.memo ({schema, rule, path, onChange, showRule
       onMove={handleMove}
       isRoot={true}
     />
-    {if showRule then <PrettyPrint value={rule}/>}
   </Segment>

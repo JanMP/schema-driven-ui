@@ -25,6 +25,7 @@ Npm.depends({
 Package.onUse(function(api) {
   api.versionsFrom('1.10.1');
   api.use('coffeescript@2.4.1');
+  api.use('coagmano:stylus');
   api.use('ecmascript');
   api.use('alanning:roles@3.2.2');
   api.use('mdg:validated-method');
