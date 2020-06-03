@@ -3,7 +3,7 @@
 Import this file before defining your SimpleSchema, to ensure it will accept the settings specific to AutoTable.
 
     import SimpleSchema from 'simpl-schema'
-    SimpleSchema.extendOptions ['AutoTable', 'uniforms']
+    SimpleSchema.extendOptions ['AutoTable', 'uniforms', 'QueryEditor']
 
 The options used by AutoTable will be:
 
