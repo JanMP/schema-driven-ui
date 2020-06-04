@@ -11,22 +11,21 @@ import { predicateSelectOptions } from './predicates'
 import PartIndex from './PartIndex'
 import _ from 'lodash'
 
-import '../../helpers/autoTableSimpleSchemaExtension.coffee.md'
+import '../../helpers/simpleSchemaExtension.coffee.md'
 
 Nothing = -> <span />
 
-objectSchema =
+regexSchema =
   new SimpleSchema
     object:
       type: String
 
-listSchema =
+defaultListSchema =
   new SimpleSchema
     object:
       type: String
       uniforms:
-        component: CodeListenSelect
-        method: 'codeListen.getSelectOptions'
+        component: -> <span>keine Liste</span>
 
 isList = (predicate) -> predicate in ['$in', '$nin']
 isRegex = (predicate) -> predicate is '$regex'
@@ -80,23 +79,34 @@ export default QuerySentenceEditor = React.memo ({rule, partIndex, bridge, path,
   subject = rule.content.subject?.value
   object = rule.content.object?.value ? ''
   predicate = rule.content.predicate?.value
+
+
+  objectSchema = # TODO check if removing the workaround is viable
+    if path
+      try
+        bridge.schema.getObjectSchema(path).pick subject
+      catch error
+        console.log 'error on calling getObjectSchema'
+        bridge.schema.pick subject
+    else bridge.schema.pick subject
+
   switch predicate
     when '$regex'
       objectPath = 'object'
-      autoFormSchema = objectSchema
+      autoFormSchema = regexSchema
     when '$in', '$nin'
       objectPath = 'object'
-      autoFormSchema = listSchema
+      autoFormSchema =
+        if objectSchema?._schema?[subject]?.QueryEditor?.inListField?
+          console.log JSON.stringify (s = objectSchema._schema[subject].QueryEditor.inListField), null, 2
+          console.log componentSchemaDefinition = object: s
+          new SimpleSchema componentSchemaDefinition
+        else defaultListSchema
     else
       objectPath = subject
-      autoFormSchema = # TODO check if removing the workaround is viable
-        if path
-          try
-            bridge.schema.getObjectSchema(path).pick subject
-          catch error
-            console.log 'error on calling getObjectSchema'
-            bridge.schema.pick subject
-        else bridge.schema.pick subject
+      autoFormSchema = objectSchema
+
+  console.log {objectPath, autoFormSchema}
         
   # check if our subject value fits our context
   # and set it to the first select option if it doesn't
