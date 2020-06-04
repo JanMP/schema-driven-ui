@@ -4,7 +4,7 @@ import {Mongo} from 'meteor/mongo'
 
 export default queryUiObjectToQuery = ({queryUiObject, getList}) ->
 
-  getList ?= -> []
+  getList ?= ({subject, predicate, object}) -> []
 
   traverseTree = (obj, context = '') ->
     dot = if context is '' then '' else '.'
