@@ -45,4 +45,8 @@ export default queryUiObjectToQuery = ({queryUiObject, getList}) ->
   unless queryUiObject.content?
     throw new Meteor.Error 'missing-queryUiObject-content'
   
-  traverseTree queryUiObject
+  try
+    traverseTree queryUiObject
+  catch error
+    console.error error
+    return error
