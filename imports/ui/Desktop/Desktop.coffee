@@ -67,7 +67,7 @@ export default Desktop = (props) ->
     .map (route, index) ->
       <Route key={index} path={route.path} exact={route.exactPath} component={route.component}/>
 
-  <>
+  <div className="desktop-container">
     <div className="menu-container">
       <Menu>
       {menuItems }
@@ -81,10 +81,11 @@ export default Desktop = (props) ->
       </Switch>
     </div>
     <div className="footer-container">
+      © 2020 Jan Pilgenröder
     </div>
     <ToastContainer
       autoClose={5000}
       hideProgressBar
       pauseOnVisibilityChange
     />
-  </>
+  </div>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import QuerySentenceEditor from './QuerySentenceEditor'
 import { getConjunctionData, getConjunctionSelectOptions } from './conjunctions'
 import { Button, Icon, Select } from 'semantic-ui-react'
@@ -20,6 +20,24 @@ export default QueryBlockEditor = React.memo ({rule, partIndex, bridge, path, on
   conjunctionSelectOptions = getConjunctionSelectOptions {bridge, path, type: rule.type}
 
   cantGetInnerPathType = false
+
+  conjunction = rule?.conjunction?.value ? null
+  
+  [blockTypeClass, setBlockTypeClass] = useState ''
+
+  useEffect ->
+    console.log conjunction
+    c =
+      switch conjunction
+        when '$and' then 'and'
+        when '$or' then 'or'
+        when '$nor' then 'nor'
+        else
+          console.log conjunctionData
+          'folder'
+    setBlockTypeClass c
+    return
+  , [conjunction]
 
   innerPath = switch
     when myContext? and path then "#{path}.#{myContext}"
@@ -94,18 +112,19 @@ export default QueryBlockEditor = React.memo ({rule, partIndex, bridge, path, on
 
   if isBlock
     <React.Fragment>
-      <div className="query-block">
-        <div
+      <div className={"query-block #{blockTypeClass}"}>
+        <div className="block-header"
           style={
             display: 'flex'
             justifyContent: 'space-between'
-            marginBottom: '1rem'
           }
         >
           <div>
-            {if isRoot then <span style={marginRight: '1rem'}>Finde einen Fall, der</span>}
+            { #TODO Find a way to change the text
+              if isRoot then <span style={marginRight: '1rem'}>Finde ein Dokument, das</span>
+            }
             <Select
-              value={rule?.conjunction?.value}
+              value={conjunction}
               options={conjunctionSelectOptions}
               onChange={changeConjunction}
             />
