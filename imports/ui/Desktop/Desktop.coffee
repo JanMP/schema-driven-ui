@@ -16,6 +16,7 @@ import DevWarning from './DevWarning'
 export default Desktop = (props) ->
   
   {menuDefinitions}=props
+  RightMenuItems = props.rightMenuItems ? -> null
 
   unless menuDefinitions
     throw new Error 'menuDefinitions is undefined'
@@ -71,6 +72,7 @@ export default Desktop = (props) ->
     <div className="menu-container">
       <Menu>
       {menuItems }
+      <RightMenuItems />
       <AccountsMenuItem />
     </Menu>
     </div>

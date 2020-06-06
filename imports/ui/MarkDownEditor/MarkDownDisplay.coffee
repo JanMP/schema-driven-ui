@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import markdownWithData from './markdownWithData'
-import './customContent.styl'
 import mark from 'markdown-it-mark'
 import footnote from 'markdown-it-footnote'
 import emoji from 'markdown-it-emoji'

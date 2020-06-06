@@ -41,7 +41,7 @@ export default createAutoDataTableBackend = (definition) ->
 
   if canExport and not exportTableRole?
     exportTableRole = viewTableRole
-    console.warn "no exportTableRole defined for AutoDataTableBackend #{sourceName}, using '#{exportTableRolea}' instead."
+    console.warn "no exportTableRole defined for AutoDataTableBackend #{sourceName}, using '#{exportTableRole}' instead."
 
   formSchema ?= sourceSchema
   listSchema ?= sourceSchema

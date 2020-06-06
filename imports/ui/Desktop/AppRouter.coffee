@@ -5,7 +5,7 @@ import Desktop from './Desktop'
 import getRoutes from './getRoutes'
 
 
-export default AppRouter = ({menuDefinitions}) ->
+export default AppRouter = ({menuDefinitions, rightMenuItems}) ->
 
   unless menuDefinitions?
     throw new Error 'menuDefinitions not defined'
@@ -26,7 +26,7 @@ export default AppRouter = ({menuDefinitions}) ->
         key={index}
         path={route.path}
         exact={route.exactPath}
-        render={-> <Desktop menuDefinitions={menuDefinitions}/>}
+        render={-> <Desktop menuDefinitions={menuDefinitions} rightMenuItems={rightMenuItems}/>}
       >
         
       </Route>

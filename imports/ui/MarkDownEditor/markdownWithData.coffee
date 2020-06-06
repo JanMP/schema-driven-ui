@@ -1,5 +1,5 @@
 import objectPath from 'object-path'
-import defaultFormatters from '/imports/helpers/defaultFormatters'
+import defaultFormatters from '../../helpers/defaultFormatters'
 import _ from 'lodash'
 
 export default markdownWithData = ({markdown, data, formatters, helpWithData}) ->
