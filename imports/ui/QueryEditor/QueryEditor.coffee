@@ -40,7 +40,6 @@ export default QueryEditor = React.memo ({schema, rule, path, onChange, attached
 
 
   <Segment className="query-editor" attached={attached}>
-    <h1>QueryEditor</h1>
     <QueryBlockEditor
       rule={rule}
       partIndex={new PartIndex()}
