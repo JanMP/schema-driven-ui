@@ -105,8 +105,6 @@ export default QuerySentenceEditor = React.memo ({rule, partIndex, bridge, path,
     else
       objectPath = subject
       autoFormSchema = objectSchema
-
-  console.log {objectPath, autoFormSchema}
         
   # check if our subject value fits our context
   # and set it to the first select option if it doesn't
