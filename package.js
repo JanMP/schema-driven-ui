@@ -1,8 +1,8 @@
 Package.describe({
   name: 'janmp:schema-driven-ui',
-  version: '0.0.1',
+  version: '0.0.2',
   // Brief, one-line summary of the package.
-  summary: '',
+  summary: 'schema driven data tables, for internal use (for now), no documentation (yet)',
   // URL to the Git repository containing the source code for this package.
   git: '',
   // By default, Meteor will default to using README.md for documentation.
@@ -25,13 +25,13 @@ Npm.depends({
 Package.onUse(function(api) {
   api.versionsFrom('1.10.1');
   api.use('coffeescript@2.4.1');
-  api.use('coagmano:stylus');
+  api.use('coagmano:stylus@2.0.0');
   api.use('ecmascript');
   api.use('alanning:roles@3.2.2');
-  api.use('mdg:validated-method');
-  api.use('momentjs:moment');
-  api.use('peerlibrary:reactive-publish')
-  api.use('tunguska:reactive-aggregate');
+  api.use('mdg:validated-method@1.2.0');
+  api.use('momentjs:moment@2.8.4');
+  api.use('peerlibrary:reactive-publish@0.6.0')
+  api.use('tunguska:reactive-aggregate@1.0.4');
   api.mainModule('schema-driven-ui.js');
 });
 
