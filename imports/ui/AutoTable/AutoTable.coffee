@@ -102,7 +102,6 @@ export default AutoTable = ({
           {if subTitle? then <Header.Subheader>{subTitle}</Header.Subheader>}
         </Header>
     }
-    <Segment padded attached={title?}>
       <Dimmer inverted active={isLoading}>
         <Loader inverted content={loaderContent} indeterminate={loaderIndeterminate}/>
       </Dimmer>
@@ -156,6 +155,4 @@ export default AutoTable = ({
           </Table.Body>
         </Table>
       </div>
-      
-    </Segment>
   </ErrorBoundary>
