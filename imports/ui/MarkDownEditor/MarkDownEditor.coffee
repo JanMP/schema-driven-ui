@@ -1,24 +1,36 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {Segment} from 'semantic-ui-react'
 import {Roles} from 'meteor/alanning:roles'
 import {useTracker} from 'meteor/react-meteor-data'
-
-import Splitter from 'm-react-splitters'
-import 'm-react-splitters/lib/splitters.css'
-
-import CodeMirror from './CodeMirror'
-import './customCodemirror.styl'
-
+import AceEditor from 'react-ace'
+import SplitPane from 'react-split-pane'
+import useSize from '@react-hook/size'
+import {useThrottle} from '@react-hook/throttle'
 import MarkDownDisplay from './MarkDownDisplay'
 
-export default MarkDownEditor = ({value, onChange, data, contentClass, contentWrapper,  style, error, disabled, mayEdit = true}) ->
-  
-  [editorPaneWidth, setEditorPaneWidth] = useState 0
+export default MarkDownEditor = ({value, onChange,
+data, contentClass, contentWrapper,  style, error, disabled, mayEdit = true}) ->
+
+  editorContainerRef = useRef null
+  aceComponentRef = useRef null
+
+  [editorContainerWidth, editorContainerHeight] = useSize editorContainerRef
+  [editorWidth, setEditorWidth] = useThrottle 0
+  [editorHeight, setEditorHeight] = useThrottle 0
+
+  useEffect ->
+    if (editorContainerWidth isnt editorWidth) or (editorContainerHeight isnt editorHeight)
+      setEditorWidth editorContainerWidth
+      setEditorHeight editorContainerHeight
+      aceComponentRef?.editor?.reset()
+    return
+  , [editorContainerWidth, editorContainerHeight]
 
   containerStylePresets =
     width: "100%"
     height: "100%"
     backgroundColor: 'white'
+    position: "relative"
 
   contentStylePresets =
     width: "100%"
@@ -33,6 +45,19 @@ export default MarkDownEditor = ({value, onChange, data, contentClass, contentWr
 
   containerStyleWithPresets = {containerStylePresets..., style..., errorStyle...}
   
+  editorDisplay =
+    <div ref={editorContainerRef} style={width: "100%", height: "100%"}>
+      <AceEditor
+        ref={aceComponentRef}
+        mode="markdown"
+        theme="kuroir"
+        height={editorHeight}
+        width="100%"
+        value={value}
+        onChange={onChange}
+      />
+    </div>
+
   markdownDisplay =
     <MarkDownDisplay
       markdown={value}
@@ -46,21 +71,16 @@ export default MarkDownEditor = ({value, onChange, data, contentClass, contentWr
   <div style={containerStyleWithPresets}>
     {
       if mayEdit
-        <Splitter
-          style={height: "100%"}
-          position="vertical"
-          primaryPaneMinWidth={0}
-          primaryPaneMaxWidth={maxWidth}
-          primaryPaneWidth={0}
+        <SplitPane
+          split="horizontal"
+          defaultSize="50%"
+          primary="second"
         >
-          <CodeMirror
-            value={value}
-            onChange={onChange}
-          />
           {markdownDisplay}
-        </Splitter>
+          {editorDisplay}
+        </SplitPane>
       else
         markdownDisplay
     }
-    
   </div>
+    

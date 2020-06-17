@@ -1,5 +1,5 @@
 import React from 'react'
-import connectWithFormField from '/imports/ui/parts/connectWithFormField'
+import connectWithFormField from '../parts/connectWithFormField'
 import {connectField} from 'uniforms'
 import MarkDownEditor from './MarkDownEditor'
 
