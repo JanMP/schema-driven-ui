@@ -8,6 +8,8 @@ import useSize from '@react-hook/size'
 import useToggle from '@react-hook/toggle'
 import {useThrottle} from '@react-hook/throttle'
 import MarkDownDisplay from './MarkDownDisplay'
+import 'ace-builds/src-noconflict/mode-markdown'
+import 'ace-builds/src-noconflict/theme-chrome'
 
 export default MarkDownEditor = ({value, onChange,
 data, contentClass, contentWrapper,  style, error, disabled, mayEdit = true}) ->
@@ -37,7 +39,6 @@ data, contentClass, contentWrapper,  style, error, disabled, mayEdit = true}) ->
   , [markdownDisplayContainerWidth, markdownDisplayContainerHeight]
 
   useEffect ->
-    console.log {contentContainerWidth, contentContainerHeight}
     setEditorWidth contentContainerWidth
     setEditorHeight contentContainerHeight-markdownDisplayContainerHeight
     aceComponentRef?.editor?.reset()
@@ -75,7 +76,7 @@ data, contentClass, contentWrapper,  style, error, disabled, mayEdit = true}) ->
       <AceEditor
         ref={aceComponentRef}
         mode="markdown"
-        theme="kuroir"
+        theme="chrome"
         width={editorWidth}
         height={editorHeight}
         value={value}
