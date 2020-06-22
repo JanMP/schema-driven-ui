@@ -27,6 +27,7 @@ Package.onUse(function(api) {
   api.use('coffeescript@2.4.1');
   api.use('coagmano:stylus@2.0.0');
   api.use('ecmascript');
+  api.use('typescript');
   api.use('alanning:roles@3.2.2');
   api.use('mdg:validated-method@1.2.0');
   api.use('momentjs:moment@2.8.4');

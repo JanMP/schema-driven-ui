@@ -24,7 +24,6 @@ export default WindowGrid = ({name, children, defaultLayout}) ->
   [layout, setLayout] = useState getLayoutFromLocalStorage ? defaultLayout
 
   onLayoutChange = (layout) ->
-    console.log layout
     setLayout layout
     saveLayoutToLocalStorage layout
 
@@ -34,7 +33,7 @@ export default WindowGrid = ({name, children, defaultLayout}) ->
     onLayoutChange={onLayoutChange}
     layout={layout}
     draggableHandle=".window-header"
-    cols={12} rowHeight={30}
+    cols={24} rowHeight={30}
   >
     {content}
   </Grid>
