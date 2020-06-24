@@ -13,7 +13,7 @@ import 'ace-builds/src-noconflict/mode-markdown'
 import 'ace-builds/src-noconflict/theme-chrome'
 
 export default MarkDownEditor = ({value, onChange,
-data, contentClass, contentWrapper,  style, error, disabled, mayEdit = true}) ->
+data, contentClass, contentWrapper, toolbar, style, error, disabled, mayEdit = true}) ->
 
   contentContainerRef = useRef null
   [contentContainerWidth, contentContainerHeight] = useSize contentContainerRef
@@ -97,6 +97,8 @@ data, contentClass, contentWrapper,  style, error, disabled, mayEdit = true}) ->
       />
     </div>
 
+  toolbar ?= <div style={borderTop: '1pt solid silver', flex: '0 0 20px'} />
+
   <div style={height: '100%', width: '100%', display: 'flex', flexDirection: 'column'}>
     <div ref={contentContainerRef} style={containerStyleWithPresets}>
       {
@@ -114,6 +116,6 @@ data, contentClass, contentWrapper,  style, error, disabled, mayEdit = true}) ->
           markdownDisplay
       }
     </div>
-    <div style={borderTop: '1pt solid silver', flex: '0 0 20px'} />
+    {toolbar}
   </div>
     
