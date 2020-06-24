@@ -24,7 +24,6 @@ export default WindowGrid = ({name, children, defaultLayout}) ->
   [layout, setLayout] = useState getLayoutFromLocalStorage ? defaultLayout
 
   onLayoutChange = (layout) ->
-    console.log layout
     setLayout layout
     saveLayoutToLocalStorage layout
 

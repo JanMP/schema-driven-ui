@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import {Button, Header, Icon, Modal, Popup} from 'semantic-ui-react'
-import meteorApply from '/imports/helpers/meteorApply'
+import meteorApply from '../../helpers/meteorApply'
 import {toast} from 'react-toastify'
 import _ from 'lodash'
 
 export default MeteorMethodButton = ({method, data, options, handler, label, icon
 onSuccess, successMsg, onError, errorMsg, style, disabled, primary, secondary, basic,
-color, fluid, confirmation, tooltip}) ->
+color, fluid, size, confirmation, tooltip}) ->
   
   unless method? or handler?
     throw new Error 'MeteorMethodButton requires a method prop or handler prop'
@@ -66,6 +66,7 @@ color, fluid, confirmation, tooltip}) ->
           color={color}
           fluid={fluid}
           icon={icon}
+          size={size}
           content={label}
         />
       }

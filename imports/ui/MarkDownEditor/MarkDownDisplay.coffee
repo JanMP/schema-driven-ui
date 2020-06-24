@@ -12,7 +12,6 @@ import {default as anchor} from 'markdown-it-anchor'
 import {default as tocDoneRight} from 'markdown-it-toc-done-right'
 import customBlock from 'markdown-it-custom-block'
 
-#TODO REDESIGN options für die TOC https://www.npmjs.com/package/markdown-it-toc-done-right
 tocOptions =
   containerClass: 'help-nav'
   level: [1, 2]

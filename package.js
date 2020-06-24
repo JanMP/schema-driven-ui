@@ -1,6 +1,6 @@
 Package.describe({
   name: 'janmp:schema-driven-ui',
-  version: '0.0.3',
+  version: '0.0.4',
   // Brief, one-line summary of the package.
   summary: 'schema driven data tables, for internal use (for now), no documentation (yet)',
   // URL to the Git repository containing the source code for this package.
@@ -27,6 +27,7 @@ Package.onUse(function(api) {
   api.use('coffeescript@2.4.1');
   api.use('coagmano:stylus@2.0.0');
   api.use('ecmascript');
+  api.use('typescript');
   api.use('alanning:roles@3.2.2');
   api.use('mdg:validated-method@1.2.0');
   api.use('momentjs:moment@2.8.4');
