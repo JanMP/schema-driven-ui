@@ -8,6 +8,7 @@ import useSize from '@react-hook/size'
 import useToggle from '@react-hook/toggle'
 import {useThrottle} from '@react-hook/throttle'
 import MarkDownDisplay from './MarkDownDisplay'
+import 'ace-builds/src-noconflict/ext-searchbox'
 import 'ace-builds/src-noconflict/mode-markdown'
 import 'ace-builds/src-noconflict/theme-chrome'
 
@@ -81,6 +82,7 @@ data, contentClass, contentWrapper,  style, error, disabled, mayEdit = true}) ->
         height={editorHeight}
         value={value}
         onChange={onChange}
+        setOptions={wrap: true, showInvisibles: true}
       />
     </div>
 

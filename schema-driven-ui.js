@@ -18,3 +18,4 @@ export {default as MarkDownEditor} from './imports/ui/MarkDownEditor/MarkDownEdi
 export {default as MarkDownEditorField} from './imports/ui/MarkDownEditor/MarkDownEditorField'
 export {default as MarkDownDisplay} from './imports/ui/MarkDownEditor/MarkDownDisplay'
 export {default as markdownWithData} from './imports/ui/MarkDownEditor/markdownWithData'
+export {default as meteorApply} from './imports/helpers/meteorApply'

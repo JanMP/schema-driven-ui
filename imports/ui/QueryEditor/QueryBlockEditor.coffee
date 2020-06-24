@@ -26,14 +26,12 @@ export default QueryBlockEditor = React.memo ({rule, partIndex, bridge, path, on
   [blockTypeClass, setBlockTypeClass] = useState ''
 
   useEffect ->
-    console.log conjunction
     c =
       switch conjunction
         when '$and' then 'and'
         when '$or' then 'or'
         when '$nor' then 'nor'
         else
-          console.log conjunctionData
           'folder'
     setBlockTypeClass c
     return
