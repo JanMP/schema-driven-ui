@@ -33,7 +33,7 @@ export default WindowGrid = ({name, children, defaultLayout}) ->
     onLayoutChange={onLayoutChange}
     layout={layout}
     draggableHandle=".window-header"
-    cols={24} rowHeight={30}
+    cols={12} rowHeight={30}
   >
     {content}
   </Grid>
