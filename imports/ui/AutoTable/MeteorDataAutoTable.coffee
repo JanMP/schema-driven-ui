@@ -41,8 +41,11 @@ export default MeteorDataAutoTable = (props) ->
   submitMethodName, deleteMethodName, fetchEditorDataMethodName
   exportRowsMethodName
   viewTableRole, editRole, exportTableRole
-  redrawTrigger = ->
+  redrawTrigger
   } = props
+
+  if redrawTrigger?
+    console.warn 'redrawTrigger is not supported anymore'
 
   if usePubSub and not (rowsCollection? and rowCountCollection?)
     throw new Error 'usePubSub is true but rowsCollection or rowCountCollection not given'
@@ -91,8 +94,6 @@ export default MeteorDataAutoTable = (props) ->
   if sortColumn? and sortDirection?
     sort = "#{sortColumn}": if sortDirection is 'ascending' then 1 else -1
 
-  redrawTriggerValue = useTracker ->
-    redrawTrigger()
 
   getRows = ->
     return if usePubSub
@@ -120,7 +121,7 @@ export default MeteorDataAutoTable = (props) ->
     if query?
       getTotalPages()
     return
-  , [search, query, sourceName, redrawTriggerValue]
+  , [search, query, sourceName]
 
   useEffect ->
     if activePage > totalPages then setActivePage (Math.max 1, totalPages)
@@ -143,7 +144,7 @@ export default MeteorDataAutoTable = (props) ->
       setLoaderIndeterminate true
       setIsLoading true
     return
-  , [activePage, search, query, sortColumn, sortDirection, sourceName, redrawTriggerValue]
+  , [activePage, search, query, sortColumn, sortDirection, sourceName]
 
   limit = perPage
   skip = (activePage - 1) * perPage
