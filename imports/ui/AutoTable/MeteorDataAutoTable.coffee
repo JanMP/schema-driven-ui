@@ -23,7 +23,6 @@ export default MeteorDataAutoTable = (props) ->
   perPage
   canEdit = false
   formSchema
-  hasSubmitted
   canSearch = false
   canAdd = false
   onAdd
@@ -60,7 +59,6 @@ export default MeteorDataAutoTable = (props) ->
 
   listSchema ?= sourceSchema
   formSchema ?= listSchema
-  hasSubmitted ?= ->
 
   if onRowClick and canEdit
     throw new Error 'both onRowClick and canEdit set to true'
@@ -191,8 +189,6 @@ export default MeteorDataAutoTable = (props) ->
     meteorApply
       method: submitMethodName
       data: d
-    .then ->
-      hasSubmitted d
     .then ->
       getRows()
     .then ->
