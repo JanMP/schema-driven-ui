@@ -25,6 +25,9 @@ export default createAutoDataTableBackend = (definition) ->
     redrawTrigger
   } = definition
 
+  if redrawTrigger?
+    console.warn 'redrawTrigger is not supported anymore'
+
   unless sourceName?
     throw new Error 'no sourceName given'
 
@@ -88,5 +91,4 @@ export default createAutoDataTableBackend = (definition) ->
     viewTableRole
     editRole
     exportTableRole
-    redrawTrigger
   }

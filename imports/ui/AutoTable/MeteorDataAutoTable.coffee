@@ -41,11 +41,7 @@ export default MeteorDataAutoTable = (props) ->
   submitMethodName, deleteMethodName, fetchEditorDataMethodName
   exportRowsMethodName
   viewTableRole, editRole, exportTableRole
-  redrawTrigger
   } = props
-
-  if redrawTrigger?
-    console.warn 'redrawTrigger is not supported anymore'
 
   if usePubSub and not (rowsCollection? and rowCountCollection?)
     throw new Error 'usePubSub is true but rowsCollection or rowCountCollection not given'
