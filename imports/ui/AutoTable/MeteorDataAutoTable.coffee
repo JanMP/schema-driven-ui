@@ -1,7 +1,7 @@
 import {Mongo} from 'meteor/mongo'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import meteorApply from '../../helpers/meteorApply'
-import AutoTable from './AutoTable'
+import NewDataTable from './NewDataTable'
 import FormModal from './FormModal'
 import {Button, Icon, Modal, Table} from 'semantic-ui-react'
 import {useTracker} from 'meteor/react-meteor-data'
@@ -11,6 +11,7 @@ import {useCurrentUserIsInRole} from '../../helpers/roleChecks'
 import getColumnsToExport from './getColumnsToExport'
 import Papa from 'papaparse'
 import downloadAsFile from '../../helpers/downloadAsFile'
+# import {useDebounce} from '@react-hook/debounce'
 import _ from 'lodash'
 
 
@@ -20,7 +21,7 @@ export default MeteorDataAutoTable = (props) ->
   usePubSub, rowsCollection, rowCountCollection
   title, titleIcon, subTitle
   query
-  perPage
+  perLoad
   canEdit = false
   formSchema
   canSearch = false
@@ -62,11 +63,15 @@ export default MeteorDataAutoTable = (props) ->
   if onRowClick and canEdit
     throw new Error 'both onRowClick and canEdit set to true'
 
-  perPage ?= 20
+  perLoad ?= 1000
   onRowClick ?= ->
 
+  resolveRef = useRef ->
+  rejectRef = useRef ->
+
   [rows, setRows] = useState []
-  [totalPages, setTotalPages] = useState 0
+  [totalRowCount, setTotalRowCount] = useState 0
+  [limit, setLimit] = useState perLoad
 
   [isLoading, setIsLoading] = useState false
   [loaderContent, setLoaderContent] = useState 'Lade Daten...'
@@ -83,12 +88,13 @@ export default MeteorDataAutoTable = (props) ->
   [idForConfirmationModal, setIdForConfirmationModal] = useState ''
 
   [search, setSearch] = useState ''
+  # [debouncedSearch, setDebouncedSearch] = useDebounce '', 1000
 
   mayEdit = useCurrentUserIsInRole editRole
   mayExport = (useCurrentUserIsInRole exportTableRole) and rows?.length
 
   if sortColumn? and sortDirection?
-    sort = "#{sortColumn}": if sortDirection is 'ascending' then 1 else -1
+    sort = "#{sortColumn}": if sortDirection is 'ASC' then 1 else -1
 
 
   getRows = ->
@@ -104,46 +110,31 @@ export default MeteorDataAutoTable = (props) ->
       console.error error
       setIsLoading false
 
-  getTotalPages = ->
+  getTotalRowCount = ->
     return if usePubSub
     meteorApply
       method: getRowCountMethodName
       data: {search, query}
     .then (result) ->
-      setTotalPages Math.ceil (result?[0]?.count or 0)/perPage
+      setTotalRowCount result?[0]?.count or 0
     .catch console.error
 
   useEffect ->
     if query?
-      getTotalPages()
+      getTotalRowCount()
     return
   , [search, query, sourceName]
 
   useEffect ->
-    if activePage > totalPages then setActivePage (Math.max 1, totalPages)
+    setLimit perLoad
     return
-  , [activePage, totalPages]
+  , [search, query, sortColumn, sortDirection, sourceName]
 
-  useEffect ->
-    setActivePage 1
-    return
-  , [sourceName]
+  # useEffect ->
+  #   setDebouncedSearch search
+  # , [search]
 
-  useEffect ->
-    if query?
-      setLoaderContent 'Lade Daten...'
-      setLoaderIndeterminate false
-      setIsLoading false
-      getRows()
-    else
-      setLoaderContent 'Kein gültiger Query'
-      setLoaderIndeterminate true
-      setIsLoading true
-    return
-  , [activePage, search, query, sortColumn, sortDirection, sourceName]
-
-  limit = perPage
-  skip = (activePage - 1) * perPage
+  skip = 0
 
   subLoading = useTracker ->
     return unless usePubSub
@@ -163,24 +154,35 @@ export default MeteorDataAutoTable = (props) ->
   subRowCount = useTracker ->
     return unless usePubSub
     rowCountCollection.findOne({})?.count or 0
+  
   useEffect ->
-    setTotalPages Math.ceil subRowCount/perPage
+    setTotalRowCount subRowCount
   , [subRowCount]
 
   subRows = useTracker ->
     return unless usePubSub
-    rowsCollection.find({}, {sort}).fetch()[0...limit]
+    rowsCollection.find({}, {sort, limit}).fetch()
+
   useEffect ->
     unless _.isEqual subRows, rows
       setRows subRows
     return
   , [subRows]
 
-  onChangePage = (e, d) -> setActivePage d.activePage
+  useEffect ->
+    resolveRef.current() unless isLoading
+  , [subLoading]
+
+  loadMoreRows = ({startIndex, stopIndex}) ->
+    if stopIndex >= limit
+      setLimit limit+perLoad
+    new Promise (res, rej) ->
+      resolveRef.current = res
+      rejectRef.current = rej
 
   onChangeSort = (d) ->
-    setSortColumn d.newSortColumn
-    setSortDirection d.newSortDirection
+    setSortColumn d.sortColumn
+    setSortDirection d.sortDirection
 
   submit = (d) ->
     meteorApply
@@ -228,7 +230,6 @@ export default MeteorDataAutoTable = (props) ->
         else
           deleteEntry {id}
         
-
   if canEdit
     onRowClick =
       ({rowData, index}) ->
@@ -288,11 +289,11 @@ export default MeteorDataAutoTable = (props) ->
           </Modal.Actions>
         </Modal>
     }
-    <AutoTable
+    <NewDataTable
       {{
-        schema: listSchema, rows, onRowClick,
+        schema: listSchema,
+        rows, totalRowCount, loadMoreRows, onRowClick,
         sortColumn, sortDirection, onChangeSort, useSort
-        activePage, totalPages, onChangePage,
         canSearch, search, onChangeSearch
         canAdd, onAdd
         canDelete, onDelete
@@ -301,7 +302,6 @@ export default MeteorDataAutoTable = (props) ->
         canExport, onExportTable
         mayExport
         isLoading, loaderContent, loaderIndeterminate
-        title, titleIcon, subTitle
       }...}
     />
   </>

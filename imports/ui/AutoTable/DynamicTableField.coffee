@@ -13,7 +13,9 @@ export default DynamicTableField = ({row, columnKey, schema}) ->
   onChange = (d) ->
     meteorApply
       method: methodName
-      data: {row..., "#{columnKey}": d}
+      data:
+        _id: row?._id
+        modifier: "#{columnKey}": d
     .catch console.error
 
 

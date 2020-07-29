@@ -4,9 +4,7 @@ import DynamicTableField from './DynamicTableField'
 
 
 export default AutoTableAutoField = ({row, columnKey, schema}) ->
-
   fieldSchema = schema._schema[columnKey]
-
   if (component = fieldSchema.AutoTable?.component)?
     component {row, columnKey, schema}
   else if fieldSchema.AutoTable?.editable and fieldSchema.AutoTable?.method

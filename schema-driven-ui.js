@@ -17,3 +17,4 @@ export {default as MarkDownDisplay} from './imports/ui/MarkDownEditor/MarkDownDi
 export {default as markdownWithData} from './imports/ui/MarkDownEditor/markdownWithData'
 export {default as meteorApply} from './imports/helpers/meteorApply'
 export {default as MeteorMethodButton} from './imports/ui/parts/MeteorMethodButton'
+export {default as connectWithFormField} from './imports/ui/parts/connectWithFormField'
