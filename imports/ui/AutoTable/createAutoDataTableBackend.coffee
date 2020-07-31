@@ -49,6 +49,7 @@ export default createAutoDataTableBackend = (definition) ->
   if pipelineMiddle?
     console.warn "pipelineMiddle is deprecated. Please use getProcessorPipeline"
   
+  getPreSelectPipeline ?= -> []
   getProcessorPipeline ?= -> pipelineMiddle ? []
 
   formSchema ?= sourceSchema
