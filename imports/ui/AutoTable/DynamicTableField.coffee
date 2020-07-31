@@ -20,6 +20,7 @@ export default DynamicTableField = ({row, columnKey, schema}) ->
 
 
   <DynamicField
+    key={"#{row?._id}#{columnKey}"}
     schema={schema}
     fieldName={columnKey}
     label={false}

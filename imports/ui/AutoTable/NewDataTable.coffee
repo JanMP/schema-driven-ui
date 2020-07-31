@@ -53,27 +53,24 @@ export default NewDataTable = ({
   tableRef = useRef null
   oldRows = useRef null
 
-  forceUpdate = ->
-    cacheRef.current.clearAll()
-    tableRef?.current?.forceUpdateGrid?()
-    return
-
   sort = ({defaultSortDirection, sortBy, sortDirection}) ->
     onChangeSort
       sortColumn: sortBy
       sortDirection: sortDirection
 
   useEffect ->
-    forceUpdate()
+    cacheRef.current.clearAll()
+    tableRef?.current?.forceUpdateGrid?()
   , [contentContainerWidth, contentContainerHeight]
 
   useEffect ->
     length = rows?.length ? 0
     oldLength = oldRows?.current?.length ? 0
     if length > oldLength
-      forceUpdate() unless _.isEqual rows?[0...oldLength], oldRows?.current
+      cacheRef.current.clearAll() unless _.isEqual rows?[0...oldLength], oldRows?.current
     else
-      forceUpdate() unless _.isEqual rows, oldRows?.current
+      cacheRef.current.clearAll() unless _.isEqual rows, oldRows?.current
+    tableRef?.current?.forceUpdateGrid()
     oldRows.current = rows
     return
   , [rows]
