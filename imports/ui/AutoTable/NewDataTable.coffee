@@ -28,11 +28,28 @@ cellRenderer = ({schema, cache}) ->
       <AutoTableAutoField row={rowData} columnKey={dataKey} schema={schema} />
     </CellMeasurer>
 
+deleteButtonCellRenderer = ({onDelete = ->}) ->
+  ({dataKey, parent, rowIndex, columnIndex, cellData, rowData}) ->
+
+    onClick = (e) ->
+      e.stopPropagation()
+      e.nativeEvent.stopImmediatePropagation()
+      if (id = rowData?._id ? rowData?.id)?
+        onDelete {id}
+
+    <Button
+      circular
+      warn
+      icon="trash"
+      onClick={onClick}
+    />
+
 export default NewDataTable = ({
   schema,
   rows, limit, totalRowCount, loadMoreRows
   sortColumn, sortDirection, onChangeSort, useSort
   canSearch, search, onChangeSearch = ->
+  isLoading
   canAdd, onAdd = ->
   canDelete, onDelete = ->
   canEdit
@@ -110,6 +127,7 @@ export default NewDataTable = ({
       <Grid>
         <Grid.Row columns={3}>
           <Grid.Column>
+            <Icon loading={isLoading} color={if isLoading then 'red' else 'green'} name="sync" size="large"/>
             {rows?.length}/{totalRowCount}
           </Grid.Column>
           <Grid.Column>
@@ -163,6 +181,12 @@ export default NewDataTable = ({
             sortDirection={sortDirection}
           >
             {columns}
+            {if canDelete then <Column
+              dataKey="fnord"
+              label=""
+              width={50}
+              cellRenderer={deleteButtonCellRenderer {onDelete}}
+            />}
           </Table>
         }
       </InfiniteLoader>

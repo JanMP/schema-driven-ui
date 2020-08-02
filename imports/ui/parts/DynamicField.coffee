@@ -5,7 +5,7 @@ import connectField from 'uniforms/connectField'
 import _ from 'lodash'
 
 #Todo: find a better place in the file structure for this
-export default DynamicField = ({schema, fieldName, label, value, onChange}) ->
+export default DynamicField = ({schema, fieldName, label, value, onChange, validate}) ->
     
   value ?= null
   onChange ?= (value) -> console.log 'onChange:', value
@@ -24,6 +24,7 @@ export default DynamicField = ({schema, fieldName, label, value, onChange}) ->
       schema={schema.pick fieldName}
       model={"#{fieldName}": value}
       onChangeModel={handleChange}
+      validate={validate}
     >
       <AutoField name={fieldName} label={label}/>
     </AutoForm>

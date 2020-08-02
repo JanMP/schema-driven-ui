@@ -26,4 +26,5 @@ export default DynamicTableField = ({row, columnKey, schema}) ->
     label={false}
     value={row[columnKey]}
     onChange={onChange}
+    validate="onChange"
   />
