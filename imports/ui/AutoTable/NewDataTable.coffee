@@ -1,10 +1,11 @@
-import React, {useEffect, useRef} from "react"
+import React, {useEffect, useState, useRef} from "react"
 import {Button, Grid, Dimmer, Icon, Input, Loader, Modal} from 'semantic-ui-react'
 import AutoTableAutoField from "./AutoTableAutoField"
 import {
   Column, defaultTableRowRenderer, Table, CellMeasurer, CellMeasurerCache,
   InfiniteLoader
 } from 'react-virtualized'
+import {useDebounce} from '@react-hook/debounce'
 import useSize from '@react-hook/size'
 import _ from 'lodash'
 
@@ -14,7 +15,8 @@ newCache = -> new CellMeasurerCache
   minHeight: 30
   defaultHeight: 200
 
-cellRenderer = ({schema, cache}) ->
+
+cellRenderer = ({schema, onChangeField, cache}) ->
   ({dataKey, parent, rowIndex, columnIndex, cellData, rowData}) ->
     options = schema._schema[dataKey].AutoTable ? {}
     cache.clear {rowIndex, columnIndex}
@@ -25,8 +27,9 @@ cellRenderer = ({schema, cache}) ->
       parent={parent}
       rowIndex={rowIndex}
     >
-      <AutoTableAutoField row={rowData} columnKey={dataKey} schema={schema} />
+      <AutoTableAutoField row={rowData} columnKey={dataKey} schema={schema} onChangeField={onChangeField}/>
     </CellMeasurer>
+
 
 deleteButtonCellRenderer = ({onDelete = ->}) ->
   ({dataKey, parent, rowIndex, columnIndex, cellData, rowData}) ->
@@ -39,10 +42,41 @@ deleteButtonCellRenderer = ({onDelete = ->}) ->
 
     <Button
       circular
-      warn
+      negative
+      basic
+      size="tiny"
       icon="trash"
       onClick={onClick}
     />
+
+
+SearchInput = ({value, onChange}) ->
+
+  [isValid, setIsValid] = useState true
+  [displayValue, setDisplayValue] = useState value
+  [debouncedValue, setDebouncedValue] = useDebounce value, 500
+
+  useEffect ->
+    onChange debouncedValue
+  , [debouncedValue]
+  
+  handleSearchChange = (newValue) ->
+    try
+      new RegExp newValue unless newValue is ''
+      setIsValid true
+      setDebouncedValue newValue
+    catch error
+      setIsValid false
+    finally
+      setDisplayValue newValue
+
+  <Input
+    error={not isValid}
+    value={displayValue}
+    onChange={(e, d) -> handleSearchChange d.value}
+    icon='search'
+  />
+
 
 export default NewDataTable = ({
   schema,
@@ -52,8 +86,7 @@ export default NewDataTable = ({
   isLoading
   canAdd, onAdd = ->
   canDelete, onDelete = ->
-  canEdit
-  mayEdit
+  canEdit, mayEdit, onChangeField = ->
   onRowClick
   canExport, onExportTable = ->
   mayExport
@@ -103,23 +136,22 @@ export default NewDataTable = ({
         not (options.hide ? true) # don't include ids by default
       else
         not (options.hide ? false)
-    .map (key) ->
+    .map (key, i, arr) ->
       schemaForKey = schema._schema[key]
       options = schemaForKey.AutoTable ? {}
       className = if options.overflow then 'overflow'
+      flexGrow = if canDelete and i is arr.length-1 then 1 else 0
       <Column
         className={className}
         key={key}
         dataKey={key}
         label={schemaForKey.label}
         width={200}
-        cellRenderer={cellRenderer {schema, cache: cacheRef.current}}
+        flexGrow={flexGrow}
+        cellRenderer={cellRenderer {schema, onChangeField, cache: cacheRef.current}}
       />
 
 
-  # useEffect ->
-  #   console.log schema
-  # , [schema]
 
   <div ref={contentContainerRef} style={height: '100%'}>
     
@@ -134,10 +166,9 @@ export default NewDataTable = ({
             <div style={textAlign: 'center'}>
               {
                 if canSearch
-                  <Input
+                  <SearchInput
                     value={search}
-                    onChange={(e, d) -> onChangeSearch d.value}
-                    icon='search'
+                    onChange={onChangeSearch}
                   />
               }
             </div>
@@ -170,7 +201,7 @@ export default NewDataTable = ({
             height={contentContainerHeight - headerContainerHeight - 10}
             headerHeight={30}
             rowHeight={cacheRef.current.rowHeight}
-            rowCount={rows?.length}
+            rowCount={rows?.length ? 0}
             rowGetter={getRow}
             onRowsRendered={onRowsRendered}
             ref={tableRef}
@@ -182,7 +213,7 @@ export default NewDataTable = ({
           >
             {columns}
             {if canDelete then <Column
-              dataKey="fnord"
+              dataKey="no-data-key"
               label=""
               width={50}
               cellRenderer={deleteButtonCellRenderer {onDelete}}

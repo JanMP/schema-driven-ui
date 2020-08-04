@@ -40,6 +40,7 @@ export default MeteorDataAutoTable = (props) ->
   getRowMethodName, getRowCountMethodName
   rowPublicationName, rowCountPublicationName
   submitMethodName, deleteMethodName, fetchEditorDataMethodName
+  setValueMethodName
   exportRowsMethodName
   viewTableRole, editRole, exportTableRole
   } = props
@@ -53,6 +54,7 @@ export default MeteorDataAutoTable = (props) ->
     rowPublicationName ?= "#{sourceName}.rows"
     rowCountPublicationName ?= "#{sourceName}.count"
     submitMethodName ?= "#{sourceName}.submit"
+    setValueMethodName ?= "#{sourceName}.setValue"
     fetchEditorDataMethodName ?= "#{sourceName}.fetchEditorData"
     deleteMethodName ?= "#{sourceName}.delete"
     exportRowsMethodName ?= "#{sourceName}.getExportRows"
@@ -229,7 +231,13 @@ export default MeteorDataAutoTable = (props) ->
           setConfirmationModalOpen true
         else
           deleteEntry {id}
-        
+  
+  onChangeField = ({_id, modifier}) ->
+    meteorApply
+      method: setValueMethodName
+      data: {_id, modifier}
+    .catch console.error
+
   if canEdit
     onRowClick =
       ({rowData, index}) ->
@@ -297,8 +305,8 @@ export default MeteorDataAutoTable = (props) ->
         canSearch, search, onChangeSearch
         canAdd, onAdd
         canDelete, onDelete
-        canEdit
-        mayEdit
+        canEdit, mayEdit
+        onChangeField,
         canExport, onExportTable
         mayExport
         isLoading, loaderContent, loaderIndeterminate
