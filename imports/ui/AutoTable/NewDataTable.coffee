@@ -5,6 +5,7 @@ import {
   Column, defaultTableRowRenderer, Table, CellMeasurer, CellMeasurerCache,
   InfiniteLoader
 } from 'react-virtualized'
+import Draggable from 'react-draggable'
 import {useDebounce} from '@react-hook/debounce'
 import useSize from '@react-hook/size'
 import _ from 'lodash'
@@ -14,6 +15,25 @@ newCache = -> new CellMeasurerCache
   fixedWidth: true
   minHeight: 30
   defaultHeight: 200
+
+
+resizableHeaderRenderer = ({onResizeRows}) ->
+  ({columnData, dataKey, disableSort, label, sortBy, sortDirection}) ->
+    <React.Fragment key={dataKey}>
+      <div className="ReactVirtualized__Table__headerTruncatedText">
+        {label}
+      </div>
+      <Draggable
+        axis="x"
+        defaultClassName="DragHandle"
+        defaultClassNameDragging="DragHandleActive"
+        onDrag={(e, {deltaX}) -> onResizeRows {dataKey, deltaX}}
+        position={x: 0}
+        zIndex={999}
+      >
+        <span className="DragHandleIcon">⋮</span>
+      </Draggable>
+    </React.Fragment>
 
 
 cellRenderer = ({schema, onChangeField, cache}) ->
@@ -92,6 +112,8 @@ export default NewDataTable = ({
   mayExport
 }) ->
 
+  deleteColumnWidth = 50
+
   cacheRef = useRef newCache()
 
   headerContainerRef = useRef null
@@ -103,6 +125,31 @@ export default NewDataTable = ({
   tableRef = useRef null
   oldRows = useRef null
 
+  columnKeys =
+    schema._firstLevelSchemaKeys
+    .filter (key) ->
+      options = schema._schema[key].AutoTable ? {}
+      if key in ['id', '_id']
+        not (options.hide ? true) # don't include ids by default
+      else
+        not (options.hide ? false)
+
+  initialColumnWidths = columnKeys.map (key, i, arr) ->
+    schema._schema[key].AutoTable?.columnWidth ? 1/(if arr.length then arr.length else 20)
+
+  [columnWidths, setColumnWidths] = useState initialColumnWidths
+  totalColumnsWidth = contentContainerWidth - if canDelete then deleteColumnWidth else 0
+  [debouncedResetTrigger, setDebouncedResetTrigger] = useDebounce 0, 100
+
+  onResizeRows = ({dataKey, deltaX}) ->
+    prevWidths = columnWidths
+    ratioDeltaX = deltaX/totalColumnsWidth
+    i = _.findIndex columnKeys, (key) -> key is dataKey
+    prevWidths[i] += ratioDeltaX
+    prevWidths[i+1] -= ratioDeltaX
+    setColumnWidths prevWidths
+    setDebouncedResetTrigger debouncedResetTrigger+1
+
   sort = ({defaultSortDirection, sortBy, sortDirection}) ->
     onChangeSort
       sortColumn: sortBy
@@ -111,7 +158,7 @@ export default NewDataTable = ({
   useEffect ->
     cacheRef.current.clearAll()
     tableRef?.current?.forceUpdateGrid?()
-  , [contentContainerWidth, contentContainerHeight]
+  , [contentContainerWidth, contentContainerHeight, debouncedResetTrigger]
 
   useEffect ->
     length = rows?.length ? 0
@@ -129,28 +176,23 @@ export default NewDataTable = ({
   isRowLoaded = ({index}) -> rows?[index]?
 
   columns =
-    schema._firstLevelSchemaKeys
-    .filter (key) ->
-      options = schema._schema[key].AutoTable ? {}
-      if key in ['id', '_id']
-        not (options.hide ? true) # don't include ids by default
-      else
-        not (options.hide ? false)
-    .map (key, i, arr) ->
+    columnKeys.map (key, i, arr) ->
       schemaForKey = schema._schema[key]
       options = schemaForKey.AutoTable ? {}
+      isLastOne = i is arr.length-1
       className = if options.overflow then 'overflow'
-      flexGrow = if canDelete and i is arr.length-1 then 1 else 0
+      # flexGrow = if canDelete and isLastOne then 1 else 0
+      headerRenderer = resizableHeaderRenderer({onResizeRows}) unless isLastOne
       <Column
         className={className}
         key={key}
         dataKey={key}
         label={schemaForKey.label}
-        width={200}
-        flexGrow={flexGrow}
+        width={columnWidths[i] * totalColumnsWidth}
+        
         cellRenderer={cellRenderer {schema, onChangeField, cache: cacheRef.current}}
+        headerRenderer={headerRenderer}
       />
-
 
 
   <div ref={contentContainerRef} style={height: '100%'}>
@@ -215,7 +257,7 @@ export default NewDataTable = ({
             {if canDelete then <Column
               dataKey="no-data-key"
               label=""
-              width={50}
+              width={deleteColumnWidth}
               cellRenderer={deleteButtonCellRenderer {onDelete}}
             />}
           </Table>
