@@ -19,7 +19,8 @@ export default WindowGrid = ({name, children, defaultLayout}) ->
 
   saveLayoutToLocalStorage = (layout) ->
     if global.localStorage
-      global.localStorage.setItem name, JSON.stringify {layout}
+      currentEntry = (try JSON.parse global.localStorage.getItem name) ? {}
+      global.localStorage.setItem name, JSON.stringify {currentEntry..., layout}
 
   [layout, setLayout] = useState getLayoutFromLocalStorage ? defaultLayout
 

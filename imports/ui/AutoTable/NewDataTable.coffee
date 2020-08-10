@@ -16,18 +16,26 @@ newCache = -> new CellMeasurerCache
   minHeight: 30
   defaultHeight: 200
 
-
 resizableHeaderRenderer = ({onResizeRows}) ->
   ({columnData, dataKey, disableSort, label, sortBy, sortDirection}) ->
+    
+    stopPropagation = (e) -> e.stopPropagation()
+
+    onDrag = (e, {deltaX}) ->
+      onResizeRows {dataKey, deltaX}
+      e.stopPropagation()
+    
     <React.Fragment key={dataKey}>
-      <div className="ReactVirtualized__Table__headerTruncatedText">
+      <div className="ReactVirtualized__Table__headerTruncatedText sort-click-target">
         {label}
       </div>
       <Draggable
         axis="x"
         defaultClassName="DragHandle"
         defaultClassNameDragging="DragHandleActive"
-        onDrag={(e, {deltaX}) -> onResizeRows {dataKey, deltaX}}
+        onDrag={onDrag}
+        onStart={stopPropagation}
+        onStop={stopPropagation}
         position={x: 0}
         zIndex={999}
       >
@@ -99,6 +107,7 @@ SearchInput = ({value, onChange}) ->
 
 
 export default NewDataTable = ({
+  name,
   schema,
   rows, limit, totalRowCount, loadMoreRows
   sortColumn, sortDirection, onChangeSort, useSort
@@ -137,9 +146,24 @@ export default NewDataTable = ({
   initialColumnWidths = columnKeys.map (key, i, arr) ->
     schema._schema[key].AutoTable?.columnWidth ? 1/(if arr.length then arr.length else 20)
 
-  [columnWidths, setColumnWidths] = useState initialColumnWidths
+  getColumnWidthsFromLocalStorage = ->
+    if global.localStorage
+      try
+        JSON.parse(global.localStorage.getItem name)?.columnWidths
+      catch error
+        console.error error
+
+  saveColumnWidthsToLocalStorage = (newWidths) ->
+    if global.localStorage
+      currentEntry = (try JSON.parse global.localStorage.getItem name) ?{}
+      global.localStorage.setItem name, JSON.stringify {currentEntry..., columnWidths: newWidths}
+
+  [columnWidths, setColumnWidths] = useState getColumnWidthsFromLocalStorage() ? initialColumnWidths
   totalColumnsWidth = contentContainerWidth - if canDelete then deleteColumnWidth else 0
+
   [debouncedResetTrigger, setDebouncedResetTrigger] = useDebounce 0, 100
+
+
 
   onResizeRows = ({dataKey, deltaX}) ->
     prevWidths = columnWidths
@@ -148,12 +172,14 @@ export default NewDataTable = ({
     prevWidths[i] += ratioDeltaX
     prevWidths[i+1] -= ratioDeltaX
     setColumnWidths prevWidths
+    saveColumnWidthsToLocalStorage prevWidths
     setDebouncedResetTrigger debouncedResetTrigger+1
 
-  sort = ({defaultSortDirection, sortBy, sortDirection}) ->
-    onChangeSort
-      sortColumn: sortBy
-      sortDirection: sortDirection
+  sort = ({event, defaultSortDirection, sortBy, sortDirection}) ->
+    if 'sort-click-target' in event?.nativeEvent?.srcElement?.classList
+      onChangeSort
+        sortColumn: sortBy
+        sortDirection: sortDirection
 
   useEffect ->
     cacheRef.current.clearAll()

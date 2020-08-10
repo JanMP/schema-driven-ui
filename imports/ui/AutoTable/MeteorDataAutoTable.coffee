@@ -299,6 +299,7 @@ export default MeteorDataAutoTable = (props) ->
     }
     <NewDataTable
       {{
+        name: sourceName
         schema: listSchema,
         rows, totalRowCount, loadMoreRows, onRowClick,
         sortColumn, sortDirection, onChangeSort, useSort
