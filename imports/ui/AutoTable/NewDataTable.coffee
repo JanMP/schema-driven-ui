@@ -18,24 +18,22 @@ newCache = -> new CellMeasurerCache
 
 resizableHeaderRenderer = ({onResizeRows}) ->
   ({columnData, dataKey, disableSort, label, sortBy, sortDirection}) ->
-    
-    stopPropagation = (e) -> e.stopPropagation()
-
+  
     onDrag = (e, {deltaX}) ->
       onResizeRows {dataKey, deltaX}
-      e.stopPropagation()
     
     <React.Fragment key={dataKey}>
       <div className="ReactVirtualized__Table__headerTruncatedText sort-click-target">
-        {label}
+        {label}{
+          if sortBy is dataKey
+            <Icon name={if sortDirection is 'ASC' then 'sort up' else 'sort down'} />
+        }
       </div>
       <Draggable
         axis="x"
         defaultClassName="DragHandle"
         defaultClassNameDragging="DragHandleActive"
         onDrag={onDrag}
-        onStart={stopPropagation}
-        onStop={stopPropagation}
         position={x: 0}
         zIndex={999}
       >
@@ -182,6 +180,11 @@ export default NewDataTable = ({
         sortDirection: sortDirection
 
   useEffect ->
+    if (newColumnWidths = getColumnWidthsFromLocalStorage())?
+      setColumnWidths newColumnWidths
+  , [name]
+
+  useEffect ->
     cacheRef.current.clearAll()
     tableRef?.current?.forceUpdateGrid?()
   , [contentContainerWidth, contentContainerHeight, debouncedResetTrigger]
@@ -207,7 +210,6 @@ export default NewDataTable = ({
       options = schemaForKey.AutoTable ? {}
       isLastOne = i is arr.length-1
       className = if options.overflow then 'overflow'
-      # flexGrow = if canDelete and isLastOne then 1 else 0
       headerRenderer = resizableHeaderRenderer({onResizeRows}) unless isLastOne
       <Column
         className={className}
