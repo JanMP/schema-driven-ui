@@ -273,6 +273,7 @@ export default NewDataTable = ({
             rowHeight={cacheRef.current.rowHeight}
             rowCount={rows?.length ? 0}
             rowGetter={getRow}
+            rowClassName={({index}) -> if index%%2 then 'uneven' else 'even'}
             onRowsRendered={onRowsRendered}
             ref={tableRef}
             overscanRowCount={10}
