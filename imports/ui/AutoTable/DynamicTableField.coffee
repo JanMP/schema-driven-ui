@@ -5,22 +5,20 @@ import AutoField from '../uniforms-react/CustomAutoField'
 import DynamicField from '../parts/DynamicField'
 
 #use our uniforms DynamicField in AutoTable
-export default DynamicTableField = ({row, columnKey, schema}) ->
+export default DynamicTableField = ({row, columnKey, schema, onChangeField}) ->
 
-  unless (methodName = schema._schema[columnKey]?.AutoTable?.method)?
-    return null
 
   onChange = (d) ->
-    meteorApply
-      method: methodName
-      data: {row..., "#{columnKey}": d}
-    .catch console.error
-
+    onChangeField
+      _id: row?._id ? row?.id
+      modifier: "#{columnKey}": d
 
   <DynamicField
+    key={"#{row?._id}#{columnKey}"}
     schema={schema}
     fieldName={columnKey}
     label={false}
     value={row[columnKey]}
     onChange={onChange}
+    validate="onChange"
   />

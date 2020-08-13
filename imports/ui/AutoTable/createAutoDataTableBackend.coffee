@@ -21,9 +21,12 @@ export default createAutoDataTableBackend = (definition) ->
     rowsCollection, rowCountCollection
     listSchema
     getPreSelectPipeline
-    pipelineMiddle, getRowsPipeline, getRowCountPipeline, getExportPipeline
+    pipelineMiddle, getProcessorPipeline, getRowsPipeline, getRowCountPipeline, getExportPipeline
     redrawTrigger
   } = definition
+
+  if redrawTrigger?
+    console.warn 'redrawTrigger is not supported anymore'
 
   unless sourceName?
     throw new Error 'no sourceName given'
@@ -43,12 +46,18 @@ export default createAutoDataTableBackend = (definition) ->
     exportTableRole = viewTableRole
     console.warn "no exportTableRole defined for AutoDataTableBackend #{sourceName}, using '#{exportTableRole}' instead."
 
+  if pipelineMiddle?
+    console.warn "pipelineMiddle is deprecated. Please use getProcessorPipeline"
+  
+  getPreSelectPipeline ?= -> []
+  getProcessorPipeline ?= -> pipelineMiddle ? []
+
   formSchema ?= sourceSchema
   listSchema ?= sourceSchema
 
   {defaultGetRowsPipeline
   defaultGetRowCountPipeline
-  defaultGetExportPipeline} = createDefaultPipeline {getPreSelectPipeline, pipelineMiddle, listSchema}
+  defaultGetExportPipeline} = createDefaultPipeline {getPreSelectPipeline, getProcessorPipeline, listSchema}
 
   getRowsPipeline ?= defaultGetRowsPipeline
   getRowCountPipeline ?= defaultGetRowCountPipeline
@@ -83,5 +92,4 @@ export default createAutoDataTableBackend = (definition) ->
     viewTableRole
     editRole
     exportTableRole
-    redrawTrigger
   }

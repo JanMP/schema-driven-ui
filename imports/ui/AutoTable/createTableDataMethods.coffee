@@ -141,6 +141,19 @@ formSchema, makeFormDataFetchMethodRunFkt, makeSubmitMethodRunFkt, makeDeleteMet
         if Meteor.isServer
           formDataFetchMethodRun {id}
 
+    #TODO hier brauchen wir noch validierung und roleCheck!!!
+    new ValidatedMethod
+      name: "#{sourceName}.setValue"
+      validate:
+        new SimpleSchema
+          _id: String
+          modifier:
+            type: Object
+            blackbox: true
+        .validator()
+      run: ({_id, modifier}) ->
+        collection.update {_id}, $set: modifier
+
   if canDelete
     new ValidatedMethod
       name: "#{sourceName}.delete"

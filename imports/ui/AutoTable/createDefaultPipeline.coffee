@@ -1,9 +1,10 @@
 import getColumnsToExport from './getColumnsToExport'
 import _ from 'lodash'
 
-export default createDefaultPipeline = ({getPreSelectPipeline, pipelineMiddle = [], listSchema}) ->
+export default createDefaultPipeline = ({getPreSelectPipeline, getProcessorPipeline, listSchema}) ->
  
   getPreSelectPipeline ?= -> []
+  getProcessorPipeline ?= -> []
 
   searchPipeline = ({search}) ->
     if search? and search isnt ''
@@ -50,19 +51,21 @@ export default createDefaultPipeline = ({getPreSelectPipeline, pipelineMiddle = 
   defaultGetRowsPipeline = ({search, query, sort = {_id: 1}, limit = 100, skip = 0}) ->
     query ?= {}
     [getPreSelectPipeline()...,
-    {$match: query}, pipelineMiddle..., (searchPipeline {search})...,
+    {$match: query},
+    getProcessorPipeline()...,
+    (searchPipeline {search})...,
     {$sort: sort}, {$skip: skip}, {$limit: limit}]
   
   defaultGetRowCountPipeline = ({search, query}) ->
     query ?= {}
     [getPreSelectPipeline()...,
-    {$match: query}, pipelineMiddle..., (searchPipeline {search})...,
+    {$match: query}, getProcessorPipeline()..., (searchPipeline {search})...,
     {$count: 'count'}, $addFields: _id: "count"]
 
   defaultGetExportPipeline = ({search, query, sort = {_id: 1}}) ->
     query ?= {}
     [getPreSelectPipeline()...,
-    {$match: query}, pipelineMiddle..., (searchPipeline {search})...,
+    {$match: query}, getProcessorPipeline()..., (searchPipeline {search})...,
     {$sort: sort}, projectStage]
 
   {defaultGetRowsPipeline, defaultGetRowCountPipeline, defaultGetExportPipeline}
