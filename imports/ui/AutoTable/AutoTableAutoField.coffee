@@ -19,7 +19,7 @@ export default AutoTableAutoField = ({row, columnKey, schema, onChangeField}) ->
         when Boolean
           <Icon name={if row[columnKey] then 'check' else 'close'} />
         when Array
-          row[columnKey]?.map (entry) -> <div style={whiteSpace: 'normal', marginBottom: '.2rem'}>{entry}</div>
+          row[columnKey]?.map (entry, i) -> <div key={i} style={whiteSpace: 'normal', marginBottom: '.2rem'}>{entry}</div>
         else
           row[columnKey] ? null
 
