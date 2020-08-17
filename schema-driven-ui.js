@@ -18,3 +18,4 @@ export {default as markdownWithData} from './imports/ui/MarkDownEditor/markdownW
 export {default as meteorApply} from './imports/helpers/meteorApply'
 export {default as MeteorMethodButton} from './imports/ui/parts/MeteorMethodButton'
 export {default as connectWithFormField} from './imports/ui/parts/connectWithFormField'
+export {currentUserIsInRole, useCurrentUserIsInRole, currentUserMustBeInRole} from './imports/helpers/roleChecks'
