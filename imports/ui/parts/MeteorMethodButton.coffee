@@ -55,20 +55,22 @@ color, fluid, size, confirmation, tooltip}) ->
       disabled={not tooltip?}
       style={popupStyle}
       trigger={
-        <Button
-          style={style}
-          onClick={handleClick}
-          loading={loading}
-          disabled={disabled}
-          primary={primary}
-          secondary={secondary}
-          basic={basic}
-          color={color}
-          fluid={fluid}
-          icon={icon}
-          size={size}
-          content={label}
-        />
+        <span>
+          <Button
+            style={style}
+            onClick={handleClick}
+            loading={loading}
+            disabled={disabled}
+            primary={primary}
+            secondary={secondary}
+            basic={basic}
+            color={color}
+            fluid={fluid}
+            icon={icon}
+            size={size}
+            content={label}
+          />
+        </span>
       }
     />
 
