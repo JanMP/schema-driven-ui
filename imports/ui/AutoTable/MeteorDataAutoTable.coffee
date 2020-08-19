@@ -282,16 +282,15 @@ export default MeteorDataAutoTable = (props) ->
         <Modal
           open={confirmationModalOpen}
           onClose={-> setConfirmationModalOpen false}
-          basic
         >
           <Modal.Content>
             <p>{deleteConfirmation ? 'fnord'}</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button basic inverted color="red" onClick={-> setConfirmationModalOpen false} >
+            <Button color="red" onClick={-> setConfirmationModalOpen false} >
               <Icon name="times"/> Abbrechen
             </Button>
-            <Button basic inverted color="green" onClick={-> deleteEntry id: idForConfirmationModal} >
+            <Button color="green" onClick={-> deleteEntry id: idForConfirmationModal} >
               <Icon name="checkmark"/> OK
             </Button>
           </Modal.Actions>

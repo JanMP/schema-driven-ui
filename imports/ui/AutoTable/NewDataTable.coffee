@@ -69,7 +69,6 @@ deleteButtonCellRenderer = ({onDelete = ->}) ->
     <Button
       circular
       negative
-      basic
       size="tiny"
       icon="trash"
       onClick={onClick}

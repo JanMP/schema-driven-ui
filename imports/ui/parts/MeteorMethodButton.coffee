@@ -79,16 +79,15 @@ color, fluid, size, confirmation, tooltip}) ->
       trigger={<Tooltip/>}
       open={modalOpen}
       onClose={-> setModalOpen false}
-      basic
     >
       <Modal.Content>
         <p>{confirmation ? 'fnord'}</p>
       </Modal.Content>
       <Modal.Actions>
-        <Button basic inverted color="red" onClick={-> setModalOpen false} >
+        <Button color="red" onClick={-> setModalOpen false} >
           <Icon name="times"/> Abbrechen
         </Button>
-        <Button basic inverted color="green" onClick={doIt} >
+        <Button color="green" onClick={doIt} >
           <Icon name="checkmark"/> OK
         </Button>
       </Modal.Actions>
