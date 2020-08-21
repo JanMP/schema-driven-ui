@@ -203,7 +203,7 @@ export default MeteorDataAutoTable = (props) ->
 
   onAdd ?= -> openModal {}
 
-  onDelete = ({id}) ->
+  onDelete ?= ({id}) ->
     console.log "deleteEntry id: #{id}"
     # setConfirmationModalOpen false
     meteorApply
