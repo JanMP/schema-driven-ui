@@ -3,6 +3,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import meteorApply from '../../helpers/meteorApply'
 import NewDataTable from './NewDataTable'
 import FormModal from './FormModal'
+import AutoEditTable from './AutoEditTable'
 import {Button, Icon, Modal, Table} from 'semantic-ui-react'
 import {useTracker} from 'meteor/react-meteor-data'
 import ErrorBoundary from './ErrorBoundary'
@@ -19,7 +20,7 @@ export default MeteorDataAutoTable = (props) ->
   {
   sourceName, listSchema,
   usePubSub, rowsCollection, rowCountCollection
-  title, titleIcon, subTitle
+  title, titleIcon, subTitle #TODO die können weg
   query
   perLoad
   canEdit = false
@@ -34,8 +35,8 @@ export default MeteorDataAutoTable = (props) ->
   onExportTable
   onRowClick
   autoFormChildren
-  disabled = false
-  readOnly = false
+  formDisabled = false
+  formReadOnly = false
   useSort = true
   getRowMethodName, getRowCountMethodName
   rowPublicationName, rowCountPublicationName
@@ -79,16 +80,9 @@ export default MeteorDataAutoTable = (props) ->
   [loaderContent, setLoaderContent] = useState 'Lade Daten...'
   [loaderIndeterminate, setLoaderIndeterminate] = useState false
 
-  [activePage, setActivePage] = useState 1
   [sortColumn, setSortColumn] = useState undefined
   [sortDirection, setSortDirection] = useState undefined
-
-  [model, setModel] = useState {}
-  [modalOpen, setModalOpen] = useState false
   
-  [confirmationModalOpen, setConfirmationModalOpen] = useState false
-  [idForConfirmationModal, setIdForConfirmationModal] = useState ''
-
   [search, setSearch] = useState ''
   # [debouncedSearch, setDebouncedSearch] = useDebounce '', 1000
 
@@ -196,10 +190,6 @@ export default MeteorDataAutoTable = (props) ->
       setModalOpen false
     .catch (error) -> console.error error
 
-  openModal = (formModel) ->
-    setModel formModel
-    setModalOpen true
-
   loadEditorData = ({id}) ->
     unless id?
       throw new Error 'loadEditorData: no id'
@@ -213,39 +203,20 @@ export default MeteorDataAutoTable = (props) ->
 
   onAdd ?= -> openModal {}
 
-  deleteEntry = ({id}) ->
-    setConfirmationModalOpen false
+  onDelete = ({id}) ->
+    console.log "deleteEntry id: #{id}"
+    # setConfirmationModalOpen false
     meteorApply
       method: deleteMethodName
       data: {id}
     .then ->
       toast.success "Der Eintrag wurde gelöscht"
-
-  onDelete ?=
-    unless canDelete
-      -> console.error 'onDelete has been called despite canDelete false'
-    else
-      ({id}) ->
-        if deleteConfirmation?
-          setIdForConfirmationModal id
-          setConfirmationModalOpen true
-        else
-          deleteEntry {id}
   
   onChangeField = ({_id, modifier}) ->
     meteorApply
       method: setValueMethodName
       data: {_id, modifier}
     .catch console.error
-
-  if canEdit
-    onRowClick =
-      ({rowData, index}) ->
-        if formSchema is listSchema
-          openModal rows[index]
-        else
-          loadEditorData id: rowData._id
-          .then openModal
    
   if canExport
     onExportTable ?= ->
@@ -263,55 +234,21 @@ export default MeteorDataAutoTable = (props) ->
         console.error error
         toast.error "Fehler (siehe console.log)"
 
-  <>
-    {
-      if canEdit and mayEdit
-        <FormModal
-          schema={formSchema}
-          onSubmit={submit}
-          model={model}
-          open={modalOpen}
-          onClose={-> setModalOpen false}
-          children={autoFormChildren}
-          disabled={disabled}
-          readOnly={readOnly}
-        />
-    }
-    {
-      if canDelete and deleteConfirmation?
-        <Modal
-          open={confirmationModalOpen}
-          onClose={-> setConfirmationModalOpen false}
-        >
-          <Modal.Content>
-            <p>{deleteConfirmation ? 'fnord'}</p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button color="red" onClick={-> setConfirmationModalOpen false} >
-              <Icon name="times"/> Abbrechen
-            </Button>
-            <Button color="green" onClick={-> deleteEntry id: idForConfirmationModal} >
-              <Icon name="checkmark"/> OK
-            </Button>
-          </Modal.Actions>
-        </Modal>
-    }
-    <NewDataTable
-      {{
-        name: sourceName
-        schema: listSchema,
-        rows, totalRowCount, loadMoreRows, onRowClick,
-        sortColumn, sortDirection, onChangeSort, useSort
-        canSearch, search, onChangeSearch
-        canAdd, onAdd
-        canDelete, onDelete
-        canEdit, mayEdit
-        onChangeField,
-        canExport, onExportTable
-        mayExport
-        isLoading, loaderContent, loaderIndeterminate
-      }...}
-    />
-  </>
+  <AutoEditTable {{
+    name: sourceName
+    listSchema, formSchema
+    rows, totalRowCount, loadMoreRows, onRowClick,
+    sortColumn, sortDirection, onChangeSort, useSort
+    canSearch, search, onChangeSearch
+    canAdd, onAdd
+    canDelete, onDelete, deleteConfirmation
+    canEdit, mayEdit, submit
+    autoFormChildren, formDisabled, formReadOnly
+    loadEditorData
+    onChangeField,
+    canExport, onExportTable
+    mayExport
+    isLoading, loaderContent, loaderIndeterminate
+  }...} />
 
     
