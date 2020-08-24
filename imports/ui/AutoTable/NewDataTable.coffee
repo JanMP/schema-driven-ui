@@ -106,7 +106,7 @@ SearchInput = ({value, onChange}) ->
 export default NewDataTable = ({
   name,
   schema,
-  rows, limit, totalRowCount, loadMoreRows
+  rows, limit, totalRowCount, loadMoreRows = ->
   sortColumn, sortDirection, onChangeSort, useSort
   canSearch, search, onChangeSearch = ->
   isLoading
