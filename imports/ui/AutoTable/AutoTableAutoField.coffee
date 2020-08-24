@@ -12,8 +12,8 @@ export default AutoTableAutoField = ({row, columnKey, schema, onChangeField}) ->
       try
         component {row, columnKey, schema}
       catch error
-        console.log 'following error in AutoTableField', {row, columnKey, schema}
         console.error error
+        console.log 'the previous error happened in AutoTableField with params', {row, columnKey, schema, component}
     else if fieldSchema.AutoTable?.editable
       <DynamicTableField {{row, columnKey, schema, onChangeField}...}/>
     else if fieldSchema.AutoTable?.markup

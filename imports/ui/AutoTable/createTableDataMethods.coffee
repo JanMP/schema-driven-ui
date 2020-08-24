@@ -141,7 +141,7 @@ formSchema, makeFormDataFetchMethodRunFkt, makeSubmitMethodRunFkt, makeDeleteMet
         if Meteor.isServer
           formDataFetchMethodRun {id}
 
-    #TODO hier brauchen wir noch validierung und roleCheck!!!
+    #TODO hier bräuchten wir noch validierung für den modifier, ist aber nicht so ganz trivial
     new ValidatedMethod
       name: "#{sourceName}.setValue"
       validate:
@@ -152,6 +152,7 @@ formSchema, makeFormDataFetchMethodRunFkt, makeSubmitMethodRunFkt, makeDeleteMet
             blackbox: true
         .validator()
       run: ({_id, modifier}) ->
+        currentUserMustBeInRole editRole
         collection.update {_id}, $set: modifier
 
   if canDelete
