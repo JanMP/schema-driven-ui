@@ -7,9 +7,14 @@ style =
 
 export default AutoTableAutoField = ({row, columnKey, schema, onChangeField}) ->
   fieldSchema = schema._schema[columnKey]
+  console.log columnKey
   inner =
     if (component = fieldSchema.AutoTable?.component)?
-      component {row, columnKey, schema}
+      try
+        component {row, columnKey, schema}
+      catch error
+        console.log 'following error in AutoTableField', {row, columnKey, schema}
+        console.error error
     else if fieldSchema.AutoTable?.editable
       <DynamicTableField {{row, columnKey, schema, onChangeField}...}/>
     else if fieldSchema.AutoTable?.markup
