@@ -3,7 +3,7 @@ import {Accounts} from 'meteor/accounts-base'
 import SimpleSchema from 'simpl-schema'
 import React, {Fragment, useState} from 'react'
 # import { withRouter } from 'react-router-dom'
-import { Button, Dropdown, Form, Header, Icon, Menu, Message, Modal } from 'semantic-ui-react'
+import { Button, Dimmer, Dropdown, Form, Header, Icon, Menu, Message, Modal } from 'semantic-ui-react'
 import withCurrentUser from '../parts/withCurrentUser'
 import FormModal from '../AutoTable/FormModal'
 import ErrorModal from '../AutoTable/ErrorModal'
@@ -14,9 +14,11 @@ export default withCurrentUser ({currentUser}) ->
   [loginModalOpen, setLoginModalOpen] = useState false
   [errorModalOpen, setErrorModalOpen] = useState false
   [errorMsg, setErrorMsg] = useState 'Everything will be fine.'
+  [dimmerActive, setDimmerActive] = useState false
 
   callback = ({mode}) ->
     (error, result) ->
+      setDimmerActive false
       if error
         setErrorMsg error.message
         setErrorModalOpen true
@@ -26,9 +28,14 @@ export default withCurrentUser ({currentUser}) ->
           else setLoginModalOpen false
 
   signup = ({username, email, password}) ->
+    setDimmerActive true
+    setSignupModalOpen false
     Accounts.createUser {username, email, password}, callback mode: 'signup'
 
-  login = ({email, password}) -> Meteor.loginWithPassword email, password, callback mode: 'login'
+  login = ({email, password}) ->
+    setDimmerActive true
+    setLoginModalOpen false
+    Meteor.loginWithPassword email, password, callback mode: 'login'
 
   loginSchema = new SimpleSchema
     email:
@@ -81,6 +88,13 @@ export default withCurrentUser ({currentUser}) ->
         </Dropdown.Menu>
       </Dropdown>
     </Menu.Menu>
+
+    <Dimmer active={dimmerActive} page>
+      <Header as='h2' icon inverted>
+        <Icon name='sign-in' />
+        Anmeldung läuft...
+      </Header>
+    </Dimmer>
 
     <FormModal
       header={'Als neuer Benutzer eintragen'}
