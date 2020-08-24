@@ -72,23 +72,23 @@ export default withCurrentUser ({currentUser}) ->
       uniforms:
         type: 'password'
 
-  <Fragment>
-    <Menu.Menu position='right'>
-      <Dropdown item text={if currentUser? then currentUser.username else 'Login'}>
-        <Dropdown.Menu>
-          {
-            if currentUser?
-              <Dropdown.Item text='Logout' onClick={-> Meteor.logout()}/>
-            else
-              <Fragment>
-                <Dropdown.Item text='Login' onClick={-> setLoginModalOpen true}/>
-                <Dropdown.Item text='Als neuer Benutzer eintragen' onClick={-> setSignupModalOpen true}/>
-              </Fragment>
-          }
-        </Dropdown.Menu>
-      </Dropdown>
-    </Menu.Menu>
 
+  <Fragment>
+    
+    <Dropdown item text={if currentUser? then currentUser.username else 'Login'}>
+      <Dropdown.Menu>
+        {
+          if currentUser?
+            <Dropdown.Item text='Logout' onClick={-> Meteor.logout()}/>
+          else
+            <Fragment>
+              <Dropdown.Item text='Login' onClick={-> setLoginModalOpen true}/>
+              <Dropdown.Item text='Als neuer Benutzer eintragen' onClick={-> setSignupModalOpen true}/>
+            </Fragment>
+        }
+      </Dropdown.Menu>
+    </Dropdown>
+    
     <Dimmer active={dimmerActive} page>
       <Header as='h2' icon inverted>
         <Icon name='sign-in' />
@@ -117,4 +117,5 @@ export default withCurrentUser ({currentUser}) ->
       open={errorModalOpen}
       onClose={-> setErrorModalOpen false}
     />
+  
   </Fragment>

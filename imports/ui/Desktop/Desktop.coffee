@@ -71,10 +71,12 @@ export default Desktop = (props) ->
   <div className="desktop-container">
     <div className="menu-container">
       <Menu>
-      {menuItems }
-      <RightMenuItems />
-      <AccountsMenuItem />
-    </Menu>
+        {menuItems }
+        <Menu.Menu position="right">
+          <RightMenuItems />
+          <AccountsMenuItem />
+        </Menu.Menu>
+      </Menu>
     </div>
     <div className="content-container">
       <DevWarning />
