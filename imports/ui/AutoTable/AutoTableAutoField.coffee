@@ -7,7 +7,6 @@ style =
 
 export default AutoTableAutoField = ({row, columnKey, schema, onChangeField}) ->
   fieldSchema = schema._schema[columnKey]
-  console.log columnKey
   inner =
     if (component = fieldSchema.AutoTable?.component)?
       try

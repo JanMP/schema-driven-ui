@@ -1,5 +1,6 @@
-import queryUiObjectToQuery from './imports/ui/QueryEditor/queryUiObjectToQuery'
+// import queryUiObjectToQuery from './imports/ui/QueryEditor/queryUiObjectToQuery'
 export {default as MeteorDataAutoTable} from './imports/ui/AutoTable/MeteorDataAutoTable';
+export {default as AutoEditTable} from './imports/ui/AutoTable/AutoEditTable'
 export {default as createAutoDataTableBackend} from './imports/ui/AutoTable/createAutoDataTableBackend';
 export {default as AppRouter} from './imports/ui/Desktop/AppRouter';
 export {default as QueryEditor} from  './imports/ui/QueryEditor/QueryEditor'
