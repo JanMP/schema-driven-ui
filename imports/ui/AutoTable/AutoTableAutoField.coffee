@@ -10,7 +10,7 @@ export default AutoTableAutoField = ({row, columnKey, schema, onChangeField}) ->
   inner =
     if (component = fieldSchema.AutoTable?.component)?
       try
-        component {row, columnKey, schema}
+        component {row, columnKey, schema, onChangeField}
       catch error
         console.error error
         console.log 'the previous error happened in AutoTableField with params', {row, columnKey, schema, component}
