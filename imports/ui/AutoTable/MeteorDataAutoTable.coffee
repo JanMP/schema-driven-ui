@@ -186,8 +186,6 @@ export default MeteorDataAutoTable = (props) ->
       data: d
     .then ->
       getRows()
-    .then ->
-      setModalOpen false
     .catch (error) -> console.error error
 
   loadEditorData = ({id}) ->
@@ -200,8 +198,6 @@ export default MeteorDataAutoTable = (props) ->
 
   onChangeSearch = (d) ->
     setSearch d
-
-  onAdd ?= -> openModal {}
 
   onDelete ?= ({id}) ->
     console.log "deleteEntry id: #{id}"

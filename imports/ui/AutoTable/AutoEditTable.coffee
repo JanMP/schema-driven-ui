@@ -20,6 +20,10 @@ export default AutoEditTable = ({
   isLoading, loaderContent, loaderIndeterminate
 }) ->
 
+  onAdd ?= ->
+    console.log 'onAdd'
+    openModal {}
+
   loadEditorData ?= ({id}) -> console.log "loadEditorData id: #{id}"
 
   [modalOpen, setModalOpen] = useState false
@@ -27,6 +31,7 @@ export default AutoEditTable = ({
 
   [confirmationModalOpen, setConfirmationModalOpen] = useState false
   [idForConfirmationModal, setIdForConfirmationModal] = useState ''
+
 
   handleOnDelete =
     unless canDelete
@@ -57,7 +62,7 @@ export default AutoEditTable = ({
 
   <>
     {
-      if canEdit and mayEdit
+      if mayEdit
         <FormModal
           schema={formSchema}
           onSubmit={submitAndClose}
