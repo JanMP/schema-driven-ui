@@ -30,7 +30,7 @@ export default SearchQueryField = connectWithFormField ({value, onChange, method
     setSearch value
     getSelectOptions value
     return
-  , [method]
+  , [method, value]
 
   useEffect ->
     getSelectOptions search
