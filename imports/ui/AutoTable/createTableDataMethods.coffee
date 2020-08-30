@@ -147,13 +147,13 @@ formSchema, makeFormDataFetchMethodRunFkt, makeSubmitMethodRunFkt, makeDeleteMet
       validate:
         new SimpleSchema
           _id: String
-          modifier:
+          changeData:
             type: Object
             blackbox: true
         .validator()
-      run: ({_id, modifier}) ->
+      run: ({_id, changeData}) ->
         currentUserMustBeInRole editRole
-        collection.update {_id}, $set: modifier
+        collection.update {_id}, $set: changeData
 
   if canDelete
     new ValidatedMethod

@@ -212,10 +212,10 @@ export default MeteorDataAutoTable = (props) ->
     .then ->
       toast.success "Der Eintrag wurde gelöscht"
   
-  onChangeField = ({_id, modifier}) ->
+  onChangeField = ({_id, changeData}) ->
     meteorApply
       method: setValueMethodName
-      data: {_id, modifier}
+      data: {_id, changeData}
     .catch console.error
    
   if canExport

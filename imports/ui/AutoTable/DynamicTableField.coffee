@@ -11,7 +11,7 @@ export default DynamicTableField = ({row, columnKey, schema, onChangeField}) ->
   onChange = (d) ->
     onChangeField
       _id: row?._id ? row?.id
-      modifier: "#{columnKey}": d
+      changeData: "#{columnKey}": d
 
   <DynamicField
     key={"#{row?._id}#{columnKey}"}
