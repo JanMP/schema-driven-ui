@@ -160,8 +160,6 @@ export default NewDataTable = ({
 
   [debouncedResetTrigger, setDebouncedResetTrigger] = useDebounce 0, 100
 
-
-
   onResizeRows = ({dataKey, deltaX}) ->
     prevWidths = columnWidths
     ratioDeltaX = deltaX/totalColumnsWidth
