@@ -18,6 +18,7 @@ export default AutoEditTable = ({
   canExport, onExportTable
   mayExport
   isLoading, loaderContent, loaderIndeterminate
+  overscanRowCount
 }) ->
 
   onAdd ?= ->
@@ -107,6 +108,7 @@ export default AutoEditTable = ({
         canExport, onExportTable
         mayExport
         isLoading, loaderContent, loaderIndeterminate
+        overscanRowCount
       }...}
     />
   </>

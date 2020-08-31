@@ -116,6 +116,7 @@ export default NewDataTable = ({
   onRowClick
   canExport, onExportTable = (args...) -> console.log "onExportTable default stump called with arguments:", args...
   mayExport
+  overscanRowCount = 1
 }) ->
 
   deleteColumnWidth = 50
@@ -273,7 +274,7 @@ export default NewDataTable = ({
             rowClassName={({index}) -> if index%%2 then 'uneven' else 'even'}
             onRowsRendered={onRowsRendered}
             ref={tableRef}
-            overscanRowCount={20}
+            overscanRowCount={overscanRowCount}
             onRowClick={onRowClick}
             sort={sort}
             sortBy={sortColumn}
