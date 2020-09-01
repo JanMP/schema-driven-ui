@@ -1,4 +1,6 @@
 import React from 'react'
+import ErrorBoundary from './ErrorBoundary'
+
 
 export default WindowContainer = ({children, title, key, noOverflow}) ->
 
@@ -7,6 +9,8 @@ export default WindowContainer = ({children, title, key, noOverflow}) ->
   <div className={className}>
     <div className="window-header" style={userSelect: 'none', cursor: 'move'}>{title}</div>
     <div className="window-content">
-      {children}
+      <ErrorBoundary>
+        {children}
+      </ErrorBoundary>
     </div>
   </div>
