@@ -36,18 +36,18 @@ export default createAutoDataTableBackend = (definition) ->
 
   unless viewTableRole?
     viewTableRole = 'any'
-    console.warn "no viewTableRole defined for AutoDataTableBackend #{sourceName}, using '#{viewTableRole}' instead."
+    console.warn "[createAutoDataTableBackend #{sourceName}]: no viewTableRole defined for AutoDataTableBackend #{sourceName}, using '#{viewTableRole}' instead."
 
   if canEdit and not editRole?
     editRole = viewTableRole
-    console.warn "no editRole defined for AutoDataTableBackend #{sourceName}, using '#{editRole}' instead."
+    console.warn "[createAutoDataTableBackend #{sourceName}]: no editRole defined for AutoDataTableBackend #{sourceName}, using '#{editRole}' instead."
 
   if canExport and not exportTableRole?
     exportTableRole = viewTableRole
-    console.warn "no exportTableRole defined for AutoDataTableBackend #{sourceName}, using '#{exportTableRole}' instead."
+    console.warn "[createAutoDataTableBackend #{sourceName}]: no exportTableRole defined for AutoDataTableBackend #{sourceName}, using '#{exportTableRole}' instead."
 
   if pipelineMiddle?
-    console.warn "pipelineMiddle is deprecated. Please use getProcessorPipeline"
+    console.warn "[createAutoDataTableBackend #{sourceName}]: pipelineMiddle is deprecated. Please use getProcessorPipeline"
   
   getPreSelectPipeline ?= -> []
   getProcessorPipeline ?= -> pipelineMiddle ? []

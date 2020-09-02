@@ -65,6 +65,9 @@ export default MeteorDataAutoTable = (props) ->
   if onRowClick and canEdit
     throw new Error 'both onRowClick and canEdit set to true'
 
+  if title? or titleIcon? or subTitle?
+    console.warn "[MeteorDataAutoTable #{sourceName}]: title, titleIcon and subTitle props are deprecated"
+
   perLoad ?= 1000
   onRowClick ?= ->
 
