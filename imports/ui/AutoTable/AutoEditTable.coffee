@@ -22,7 +22,6 @@ export default AutoEditTable = ({
 }) ->
 
   onAdd ?= ->
-    console.log 'onAdd'
     openModal {}
 
   loadEditorData ?= ({id}) -> console.log "loadEditorData id: #{id}"
