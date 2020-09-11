@@ -53,7 +53,7 @@ cellRenderer = ({schema, onChangeField, cache}) ->
       parent={parent}
       rowIndex={rowIndex}
     >
-      <AutoTableAutoField row={rowData} columnKey={dataKey} schema={schema} onChangeField={onChangeField}/>
+      {({measure}) -> <AutoTableAutoField row={rowData} columnKey={dataKey} schema={schema} onChangeField={onChangeField} measure={measure}/>}
     </CellMeasurer>
 
 
@@ -116,7 +116,7 @@ export default NewDataTable = ({
   onRowClick
   canExport, onExportTable = (args...) -> console.log "onExportTable default stump called with arguments:", args...
   mayExport
-  overscanRowCount = 1
+  overscanRowCount = 10
 }) ->
 
   deleteColumnWidth = 50

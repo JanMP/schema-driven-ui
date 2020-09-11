@@ -9,20 +9,11 @@ optionCache =
   do ->
     cacheObj = {}
     
-    add: ({value, text}) ->
-      console.log "optionCache.add #{JSON.stringify {value, text}, null}"
-      console.log "result", cacheObj = {cacheObj..., "#{value}": text}
-    get: (value) ->
-      console.log "optionCache.get #{value}"
-      console.log result = cacheObj[value]
-      result
-
-console.log optionCache
-optionCache.add value: "fnord", text: "You may not look at the Fnord!"
-console.log optionCache.get "fnord"
+    add: ({value, text}) -> cacheObj = {cacheObj..., "#{value}": text}
+    get: (value) -> if cacheObj[value] then {value, text:cacheObj[value]}
 
 
-export default SearchQueryField = ({row, columnKey, schema, onChangeField, measure}) ->
+export default SearchQueryCell = ({row, columnKey, schema, onChangeField, measure}) ->
 
   value = row?[columnKey]
 
@@ -38,22 +29,21 @@ export default SearchQueryField = ({row, columnKey, schema, onChangeField, measu
   [selectOptions, setSelectOptions] = useState []
 
   getSelectOptions = (selectValue) ->
-    if selectValue? and (result = optionCache?.get selectValue)?
-      console.log "use result: #{JSON.stringify result}"
+    return unless selectValue?
+    if (result = optionCache?.get selectValue)?
       setSelectOptions [result]
       return
-    console.log "[SearchQueryCell]: call method"
     meteorApply
       method: method
       data: search: selectValue
     .then (result) ->
-      if result.length is 1
-        optionCache?.add result[0]
       unless result.length
         result = [
           value: value
           text: "#{value} [keine Beschreibung vorhanden]"
         ]
+      if result.length is 1
+        optionCache?.add result[0]
       setSelectOptions result
     .catch console.error
 
@@ -69,16 +59,16 @@ export default SearchQueryField = ({row, columnKey, schema, onChangeField, measu
   , [search]
 
   useEffect ->
-    measure?()
+    if selectOptions? then measure?()
     return
   , [selectOptions]
 
   handleSearchChange = (e, d) -> setSearch d.searchQuery
   handleChange = (e, d) ->
-    onChange d.value
+    onChangeField _id: row._id, changeData: "#{columnKey}": d.value
 
   <Dropdown
-    style={{ minWidth: '12rem' }}
+    style={{ minWidth: '100%' }}
     placeholder={placeholder}
     search
     selection
@@ -88,5 +78,6 @@ export default SearchQueryField = ({row, columnKey, schema, onChangeField, measu
     value={value}
     onChange={handleChange}
   />
+
 
 

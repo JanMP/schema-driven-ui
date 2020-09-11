@@ -5,12 +5,12 @@ import DynamicTableField from './DynamicTableField'
 style =
   padding: "4px 0"
 
-export default AutoTableAutoField = ({row, columnKey, schema, onChangeField}) ->
+export default AutoTableAutoField = ({row, columnKey, schema, onChangeField, measure}) ->
   fieldSchema = schema._schema[columnKey]
   inner =
     if (component = fieldSchema.AutoTable?.component)?
       try
-        component {row, columnKey, schema, onChangeField}
+        component {row, columnKey, schema, onChangeField, measure}
       catch error
         console.error error
         console.log 'the previous error happened in AutoTableField with params', {row, columnKey, schema, component}
