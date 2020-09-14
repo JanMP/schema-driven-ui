@@ -30,9 +30,9 @@ Package.onUse(function(api) {
   api.use('typescript');
   api.use('alanning:roles@3.2.2');
   api.use('mdg:validated-method@1.2.0');
-  api.use('momentjs:moment@2.8.4');
+  api.use('momentjs:moment@2.28.0');
   api.use('peerlibrary:reactive-publish@0.6.0')
-  api.use('tunguska:reactive-aggregate@1.0.4');
+  api.use('tunguska:reactive-aggregate@1.3.3');
   api.mainModule('schema-driven-ui.js');
 });
 
