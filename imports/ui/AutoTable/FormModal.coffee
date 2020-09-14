@@ -1,7 +1,7 @@
 import React from 'react'
 
-import AutoForm from '../uniforms-react/AutoFormWrapper'
-import AutoField from '../uniforms-react/CustomAutoField'
+import AutoForm from '../uniforms-react/AutoForm'
+import AutoField from '../uniforms-react/AutoField'
 
 import { Modal } from 'semantic-ui-react'
 

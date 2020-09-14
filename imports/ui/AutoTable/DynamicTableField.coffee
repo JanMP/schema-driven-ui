@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import meteorApply from '../../helpers/meteorApply'
-import AutoForm from '../uniforms-react/AutoFormWrapper'
-import AutoField from '../uniforms-react/CustomAutoField'
+import AutoForm from '../uniforms-react/AutoForm'
+import AutoField from '../uniforms-react/AutoField'
 import DynamicField from '../parts/DynamicField'
 
 #use our uniforms DynamicField in AutoTable

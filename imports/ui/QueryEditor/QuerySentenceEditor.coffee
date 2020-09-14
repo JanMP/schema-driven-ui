@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
-import AutoForm from '../uniforms-react/AutoFormWrapper'
-import AutoField from '../uniforms-react/CustomAutoField'
+import AutoForm from '../uniforms-react/AutoForm'
+import AutoField from '../uniforms-react/AutoField'
 import DynamicField from '../parts/DynamicField'
 import CodeListenSelect from '../parts/SearchQueryField'
 

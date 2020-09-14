@@ -1,7 +1,7 @@
 import React from 'react'
-import AutoForm from '../uniforms-react/AutoFormWrapper'
-import AutoField from '../uniforms-react/CustomAutoField'
-import connectField from 'uniforms/connectField'
+import AutoForm from '../uniforms-react/AutoForm'
+import AutoField from '../uniforms-react/AutoField'
+import {connectField} from 'uniforms'
 import _ from 'lodash'
 
 #Todo: find a better place in the file structure for this
