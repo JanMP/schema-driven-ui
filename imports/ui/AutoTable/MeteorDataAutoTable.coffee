@@ -17,13 +17,13 @@ import _ from 'lodash'
 
 export default MeteorDataAutoTable = (props) ->
   {
-  sourceName, listSchema,
+  sourceName, listSchemaBridge,
   usePubSub, rowsCollection, rowCountCollection
   title, titleIcon, subTitle #TODO die können weg
   query
   perLoad
   canEdit = false
-  formSchema
+  formSchemaBridge
   canSearch = false
   canAdd = false
   onAdd
@@ -59,8 +59,7 @@ export default MeteorDataAutoTable = (props) ->
     deleteMethodName ?= "#{sourceName}.delete"
     exportRowsMethodName ?= "#{sourceName}.getExportRows"
 
-  listSchema ?= sourceSchema
-  formSchema ?= listSchema
+  formSchemaBridge ?= listSchemaBridge
 
   if onRowClick and canEdit
     throw new Error 'both onRowClick and canEdit set to true'
@@ -223,7 +222,7 @@ export default MeteorDataAutoTable = (props) ->
         data: {search, query, sort}
       .then (rows) ->
         toast.success "Exportdaten vom Server erhalten"
-        Papa.unparse rows, columns: getColumnsToExport schema: listSchema
+        Papa.unparse rows, columns: getColumnsToExport schema: listSchemaBridge.schema
       .then (csvString) ->
         downloadAsFile
           dataString: csvString
@@ -234,7 +233,7 @@ export default MeteorDataAutoTable = (props) ->
 
   <AutoEditTable {{
     name: sourceName
-    listSchema, formSchema
+    listSchemaBridge, formSchemaBridge
     rows, totalRowCount, loadMoreRows, onRowClick,
     sortColumn, sortDirection, onChangeSort, useSort
     canSearch, search, onChangeSearch

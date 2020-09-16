@@ -5,7 +5,7 @@ import FormModal from './FormModal'
 
 export default AutoEditTable = ({
   name
-  listSchema, formSchema
+  listSchemaBridge, formSchemaBridge
   rows, totalRowCount, loadMoreRows, onRowClick,
   sortColumn, sortDirection, onChangeSort, useSort
   canSearch, search, onChangeSearch
@@ -54,7 +54,7 @@ export default AutoEditTable = ({
   if canEdit
     onRowClick =
       ({rowData, index}) ->
-        if formSchema is listSchema
+        if formSchemaBridge is listSchemaBridge
           openModal rows[index]
         else
           loadEditorData id: rowData._id
@@ -64,7 +64,7 @@ export default AutoEditTable = ({
     {
       if mayEdit
         <FormModal
-          schema={formSchema}
+          schema={formSchemaBridge}
           onSubmit={submitAndClose}
           model={model}
           open={modalOpen}
@@ -96,7 +96,7 @@ export default AutoEditTable = ({
     <NewDataTable
       {{
         name
-        schema: listSchema,
+        schema: listSchemaBridge,
         rows, totalRowCount, loadMoreRows, onRowClick,
         sortColumn, sortDirection, onChangeSort, useSort
         canSearch, search, onChangeSearch
