@@ -42,9 +42,9 @@ resizableHeaderRenderer = ({onResizeRows}) ->
     </React.Fragment>
 
 
-cellRenderer = ({schema, onChangeField, cache}) ->
+cellRenderer = ({schemaBridge, onChangeField, cache}) ->
   ({dataKey, parent, rowIndex, columnIndex, cellData, rowData}) ->
-    options = schema._schema[dataKey].AutoTable ? {}
+    options = schemaBridge.schema._schema[dataKey].AutoTable ? {}
     cache.clear {rowIndex, columnIndex}
     <CellMeasurer
       cache={cache}
@@ -53,7 +53,7 @@ cellRenderer = ({schema, onChangeField, cache}) ->
       parent={parent}
       rowIndex={rowIndex}
     >
-      {({measure}) -> <AutoTableAutoField row={rowData} columnKey={dataKey} schema={schema} onChangeField={onChangeField} measure={measure}/>}
+      {({measure}) -> <AutoTableAutoField row={rowData} columnKey={dataKey} schemaBridge={schemaBridge} onChangeField={onChangeField} measure={measure}/>}
     </CellMeasurer>
 
 
@@ -105,7 +105,7 @@ SearchInput = ({value, onChange}) ->
 
 export default NewDataTable = ({
   name,
-  schema,
+  schemaBridge,
   rows, limit, totalRowCount, loadMoreRows = (args...) -> console.log "loadMoreRows default stump called with arguments:", args...
   useSort, sortColumn, sortDirection, onChangeSort = (args...) -> console.log "onChangeSort default stump called with arguments:", args...
   canSearch, search, onChangeSearch = (args...) -> console.log "onChangeSearch default stump called with arguments:", args...
@@ -118,6 +118,8 @@ export default NewDataTable = ({
   mayExport
   overscanRowCount = 10
 }) ->
+
+  schema = schemaBridge.schema
 
   deleteColumnWidth = 50
 
@@ -216,7 +218,7 @@ export default NewDataTable = ({
         label={schemaForKey.label}
         width={columnWidths[i] * totalColumnsWidth}
         
-        cellRenderer={cellRenderer {schema, onChangeField, cache: cacheRef.current}}
+        cellRenderer={cellRenderer {schemaBridge, onChangeField, cache: cacheRef.current}}
         headerRenderer={headerRenderer}
       />
 

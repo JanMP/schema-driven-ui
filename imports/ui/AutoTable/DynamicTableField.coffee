@@ -15,7 +15,7 @@ export default DynamicTableField = ({row, columnKey, schemaBridge, onChangeField
 
   <DynamicField
     key={"#{row?._id}#{columnKey}"}
-    schema={schemaBridge}
+    schemaBridge={schemaBridge}
     fieldName={columnKey}
     label={false}
     value={row[columnKey]}

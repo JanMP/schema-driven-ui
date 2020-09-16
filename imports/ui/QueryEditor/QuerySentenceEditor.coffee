@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import AutoForm from '../uniforms-react/AutoForm'
 import AutoField from '../uniforms-react/AutoField'
+import {SimpleSchema2Bridge as Bridge} from 'uniforms-bridge-simple-schema-2'
 import DynamicField from '../parts/DynamicField'
 import CodeListenSelect from '../parts/SearchQueryField'
 
@@ -97,14 +98,14 @@ export default QuerySentenceEditor = React.memo ({rule, partIndex, bridge, path,
     when '$in', '$nin'
       objectPath = 'object'
       autoFormSchema =
-        if objectSchema?._schema?[subject]?.QueryEditor?.inListField?
-          console.log JSON.stringify (s = objectSchema._schema[subject].QueryEditor.inListField), null, 2
-          console.log componentSchemaDefinition = object: s
-          new SimpleSchema componentSchemaDefinition
+        if (inListField = objectSchema?._schema?[subject]?.QueryEditor?.inListField)?
+          new SimpleSchema object: inListField
         else defaultListSchema
     else
       objectPath = subject
       autoFormSchema = objectSchema
+  
+  autoFormSchemaBridge = new Bridge autoFormSchema
         
   # check if our subject value fits our context
   # and set it to the first select option if it doesn't
@@ -139,7 +140,7 @@ export default QuerySentenceEditor = React.memo ({rule, partIndex, bridge, path,
       </div>
       <div>
         <DynamicField
-          schema={autoFormSchema}
+          schemaBridge={autoFormSchemaBridge}
           fieldName={objectPath}
           label={false}
           value={object}

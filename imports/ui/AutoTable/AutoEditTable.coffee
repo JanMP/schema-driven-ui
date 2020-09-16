@@ -64,7 +64,7 @@ export default AutoEditTable = ({
     {
       if mayEdit
         <FormModal
-          schema={formSchemaBridge}
+          schemaBridge={formSchemaBridge}
           onSubmit={submitAndClose}
           model={model}
           open={modalOpen}
@@ -96,7 +96,7 @@ export default AutoEditTable = ({
     <NewDataTable
       {{
         name
-        schema: listSchemaBridge,
+        schemaBridge: listSchemaBridge,
         rows, totalRowCount, loadMoreRows, onRowClick,
         sortColumn, sortDirection, onChangeSort, useSort
         canSearch, search, onChangeSearch

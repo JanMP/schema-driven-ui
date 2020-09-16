@@ -1,7 +1,7 @@
 import publishTableData from './publishTableData'
 import createTableDataMethods from './createTableDataMethods'
 import createDefaultPipeline from './createDefaultPipeline'
-
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2'
 
 
 export default createAutoDataTableBackend = (definition) ->
@@ -52,8 +52,14 @@ export default createAutoDataTableBackend = (definition) ->
   getPreSelectPipeline ?= -> []
   getProcessorPipeline ?= -> pipelineMiddle ? []
 
-  formSchema ?= sourceSchema
   listSchema ?= sourceSchema
+  formSchema ?= sourceSchema
+
+  listSchemaBridge = new SimpleSchema2Bridge(listSchema)
+  if listSchema is formSchema
+    formSchemaBridge = listSchemaBridge
+  else
+    formSchemaBridge = new SimpleSchema2Bridge(formSchema)
 
   {defaultGetRowsPipeline
   defaultGetRowCountPipeline
@@ -82,7 +88,7 @@ export default createAutoDataTableBackend = (definition) ->
 
   #return props for the ui component
   {
-    sourceName, listSchema, formSchema
+    sourceName, listSchemaBridge, formSchemaBridge
     usePubSub, rowsCollection, rowCountCollection
     canEdit
     canSearch
