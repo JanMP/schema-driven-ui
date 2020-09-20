@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import cloneDeep from 'lodash/cloneDeep';
-import connectField from 'uniforms/connectField';
+import {connectField} from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
 
 /**
