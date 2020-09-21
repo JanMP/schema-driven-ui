@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import xor from 'lodash/xor';
 import React, { Ref } from 'react';
 import { connectField, filterDOMProps, HTMLFieldProps } from 'uniforms';
+import { Dropdown } from 'semantic-ui-react';
 
 const base64 =
   typeof btoa !== 'undefined'
@@ -72,29 +73,20 @@ function Select({
           </div>
         ))
       ) : (
-        <select
-          className="ui selection dropdown"
-          disabled={disabled}
+        <Dropdown
+          selection
           id={id}
+          disabled={disabled}
           name={name}
-          onChange={event =>
-            onChange(event.target.value !== '' ? event.target.value : undefined)
-          }
+          options={allowedValues?.map(value => ({
+            key: value,
+            value: value,
+            text: transform ? transform(value) : value
+          }))}
+          onChange={(event, data) => onChange(data?.value !== '' ? data?.value : undefined)}
           ref={inputRef}
           value={value ?? ''}
-        >
-          {(!!placeholder || !required || value === undefined) && (
-            <option value="" disabled={required} hidden={required}>
-              {placeholder || label}
-            </option>
-          )}
-
-          {allowedValues?.map(value => (
-            <option key={value} value={value}>
-              {transform ? transform(value) : value}
-            </option>
-          ))}
-        </select>
+        />
       )}
 
       {!!(error && showInlineError) && (
