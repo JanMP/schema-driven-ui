@@ -20,6 +20,8 @@ export default AutoTableAutoField = ({row, columnKey, schemaBridge, onChangeFiel
       <div dangerouslySetInnerHTML={__html: row[columnKey]} />
     else
       switch fieldType = fieldSchema.type.definitions[0].type
+        when Date
+          <span>{row[columnKey].toLocaleString()}</span>
         when Boolean
           <Icon name={if row[columnKey] then 'check' else 'close'} />
         when Array
