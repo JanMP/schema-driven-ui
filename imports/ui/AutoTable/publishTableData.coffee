@@ -26,4 +26,5 @@ getRowsPipeline, getRowCountPipeline})  ->
         ReactiveAggregate this, collection,
           pipeline,
           clientCollection: "#{sourceName}.count"
+          debouncCount: 100
           dbounceDelay: 500

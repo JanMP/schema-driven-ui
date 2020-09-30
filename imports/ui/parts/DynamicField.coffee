@@ -6,7 +6,7 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2'
 import _ from 'lodash'
 
 #Todo: find a better place in the file structure for this
-export default DynamicField = ({schemaBridge, fieldName, label, value, onChange, validate}) ->
+export default DynamicField = ({schemaBridge, fieldName, label, value, onChange, validate, mayEdit}) ->
     
   value ?= null
   onChange ?= (value) -> console.log 'onChange:', value
@@ -29,6 +29,6 @@ export default DynamicField = ({schemaBridge, fieldName, label, value, onChange,
       onChangeModel={handleChange}
       validate={validate}
     >
-      <AutoField name={fieldName} label={label}/>
+      <AutoField name={fieldName} label={label} disabled={not mayEdit}/>
     </AutoForm>
   </div>

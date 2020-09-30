@@ -5,7 +5,7 @@ import AutoField from '../uniforms-react/AutoField'
 import DynamicField from '../parts/DynamicField'
 
 #use our uniforms DynamicField in AutoTable
-export default DynamicTableField = ({row, columnKey, schemaBridge, onChangeField}) ->
+export default DynamicTableField = ({row, columnKey, schemaBridge, onChangeField, mayEdit}) ->
 
 
   onChange = (d) ->
@@ -21,4 +21,5 @@ export default DynamicTableField = ({row, columnKey, schemaBridge, onChangeField
     value={row[columnKey]}
     onChange={onChange}
     validate="onChange"
+    mayEdit={mayEdit}
   />

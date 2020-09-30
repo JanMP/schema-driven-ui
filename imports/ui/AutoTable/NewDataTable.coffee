@@ -42,7 +42,7 @@ resizableHeaderRenderer = ({onResizeRows}) ->
     </React.Fragment>
 
 
-cellRenderer = ({schemaBridge, onChangeField, cache}) ->
+cellRenderer = ({schemaBridge, onChangeField, cache, mayEdit}) ->
   ({dataKey, parent, rowIndex, columnIndex, cellData, rowData}) ->
     options = schemaBridge.schema._schema[dataKey].AutoTable ? {}
     cache.clear {rowIndex, columnIndex}
@@ -53,7 +53,15 @@ cellRenderer = ({schemaBridge, onChangeField, cache}) ->
       parent={parent}
       rowIndex={rowIndex}
     >
-      {({measure}) -> <AutoTableAutoField row={rowData} columnKey={dataKey} schemaBridge={schemaBridge} onChangeField={onChangeField} measure={measure}/>}
+      {({measure}) ->
+        <AutoTableAutoField
+          row={rowData}
+          columnKey={dataKey}
+          schemaBridge={schemaBridge}
+          onChangeField={onChangeField}
+          measure={measure}
+          mayEdit={mayEdit}
+        />}
     </CellMeasurer>
 
 
@@ -218,7 +226,7 @@ export default NewDataTable = ({
         label={schemaForKey.label}
         width={columnWidths[i] * totalColumnsWidth}
         
-        cellRenderer={cellRenderer {schemaBridge, onChangeField, cache: cacheRef.current}}
+        cellRenderer={cellRenderer {schemaBridge, onChangeField, mayEdit, cache: cacheRef.current}}
         headerRenderer={headerRenderer}
       />
 
