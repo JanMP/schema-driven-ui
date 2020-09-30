@@ -67,7 +67,7 @@ export default MeteorDataAutoTable = (props) ->
   if title? or titleIcon? or subTitle?
     console.warn "[MeteorDataAutoTable #{sourceName}]: title, titleIcon and subTitle props are deprecated"
 
-  perLoad ?= 1000
+  perLoad ?= 500
   onRowClick ?= ->
 
   resolveRef = useRef ->
