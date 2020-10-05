@@ -21,7 +21,7 @@ export default AutoTableAutoField = ({row, columnKey, schemaBridge, onChangeFiel
     else
       switch fieldType = fieldSchema.type.definitions[0].type
         when Date
-          <span>{row[columnKey].toLocaleString()}</span>
+          <span>{row[columnKey]?.toLocaleString()}</span>
         when Boolean
           <Icon name={if row[columnKey] then 'check' else 'close'} />
         when Array
