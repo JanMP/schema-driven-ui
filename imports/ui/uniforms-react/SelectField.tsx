@@ -83,7 +83,7 @@ function Select({
             value: value,
             text: transform ? transform(value) : value
           }))}
-          onChange={(event, data) => onChange(data?.value !== '' ? data?.value : undefined)}
+          onChange={(event, data) => onChange(data?.value)}
           ref={inputRef}
           value={value ?? ''}
         />
