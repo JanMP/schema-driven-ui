@@ -127,6 +127,7 @@ export default QuerySentenceEditor = React.memo ({rule, partIndex, bridge, path,
               value={subject}
               options={subjectSelectOptions}
               onChange={changeSubject}
+              style={minWidth: '12em'}
             />
           </Form.Field>
           <Form.Field>
@@ -134,6 +135,7 @@ export default QuerySentenceEditor = React.memo ({rule, partIndex, bridge, path,
               value={rule.content.predicate?.value}
               options={predicateSelectOptions}
               onChange={changePredicate}
+              style={minWidth: '5em'}
             />
           </Form.Field>
         </Form>
@@ -145,6 +147,7 @@ export default QuerySentenceEditor = React.memo ({rule, partIndex, bridge, path,
           label={false}
           value={object}
           onChange={changeObject}
+          mayEdit={true}
         />
       </div>
     </div>
