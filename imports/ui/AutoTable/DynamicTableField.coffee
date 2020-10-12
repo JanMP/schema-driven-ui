@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
 import meteorApply from '../../helpers/meteorApply'
-import AutoForm from '../uniforms-react/AutoFormWrapper'
-import AutoField from '../uniforms-react/CustomAutoField'
+import AutoForm from '../uniforms-react/AutoForm'
+import AutoField from '../uniforms-react/AutoField'
 import DynamicField from '../parts/DynamicField'
 
 #use our uniforms DynamicField in AutoTable
-export default DynamicTableField = ({row, columnKey, schema, onChangeField}) ->
+export default DynamicTableField = ({row, columnKey, schemaBridge, onChangeField, mayEdit}) ->
 
 
   onChange = (d) ->
@@ -15,10 +15,11 @@ export default DynamicTableField = ({row, columnKey, schema, onChangeField}) ->
 
   <DynamicField
     key={"#{row?._id}#{columnKey}"}
-    schema={schema}
+    schemaBridge={schemaBridge}
     fieldName={columnKey}
     label={false}
     value={row[columnKey]}
     onChange={onChange}
     validate="onChange"
+    mayEdit={mayEdit}
   />

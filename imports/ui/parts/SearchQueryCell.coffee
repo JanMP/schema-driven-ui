@@ -13,17 +13,17 @@ optionCache =
     get: (value) -> if cacheObj[value] then {value, text:cacheObj[value]}
 
 
-export default SearchQueryCell = ({row, columnKey, schema, onChangeField, measure}) ->
+export default SearchQueryCell = ({row, columnKey, schemaBridge, onChangeField, measure}) ->
 
   value = row?[columnKey]
 
-  unless (options = schema?._schema?[columnKey]?.AutoTable)?
-    throw new Error "[SearchQueryCell]: missing AutoTable options in schema for key: #{columnKey}"
+  unless (options = schemaBridge?.schema._schema?[columnKey]?.AutoTable)?
+    throw new Error "[SearchQueryCell]: missing AutoTable options in schemaBridge for key: #{columnKey}"
 
   placeholder = options.placeholder ? 'Bitte auswählen'
 
   unless (method = options.method)?
-    throw new Error "[SearchQueryCell]: AutoTable.method must be supplied in schema for key: #{columnKey}"
+    throw new Error "[SearchQueryCell]: AutoTable.method must be supplied in schemaBridge for key: #{columnKey}"
   
   [search, setSearch] = useState value
   [selectOptions, setSelectOptions] = useState []

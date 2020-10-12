@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 
-import CustomAutoField from '../uniforms-react/CustomAutoField';
+import CustomAutoField from '../uniforms-react/AutoField';
 import CustomDateTimeField from '../uniforms-react/CustomDateTimeField';
 
 let guestSchemaDefinition = {

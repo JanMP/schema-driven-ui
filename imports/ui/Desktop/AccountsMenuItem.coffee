@@ -7,6 +7,8 @@ import { Button, Dimmer, Dropdown, Form, Header, Icon, Menu, Message, Modal } fr
 import withCurrentUser from '../parts/withCurrentUser'
 import FormModal from '../AutoTable/FormModal'
 import ErrorModal from '../AutoTable/ErrorModal'
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2'
+
 
 export default withCurrentUser ({currentUser}) ->
 
@@ -46,6 +48,7 @@ export default withCurrentUser ({currentUser}) ->
       label: 'Passwort'
       uniforms:
         type: 'password'
+  loginSchemaBridge = new SimpleSchema2Bridge loginSchema
 
   signupSchema = new SimpleSchema
     email:
@@ -71,6 +74,7 @@ export default withCurrentUser ({currentUser}) ->
         'passwordRepeat misatch' unless @value is @field('password').value
       uniforms:
         type: 'password'
+  signupSchemaBridge = new SimpleSchema2Bridge signupSchema
 
 
   <Fragment>
@@ -100,7 +104,7 @@ export default withCurrentUser ({currentUser}) ->
       header={'Als neuer Benutzer eintragen'}
       open={signupModalOpen}
       onClose={-> setSignupModalOpen false}
-      schema={signupSchema}
+      schemaBridge={signupSchemaBridge}
       onSubmit={signup}
     />
 
@@ -108,7 +112,7 @@ export default withCurrentUser ({currentUser}) ->
       header={'Login'}
       open={loginModalOpen}
       onClose={-> setLoginModalOpen false}
-      schema={loginSchema}
+      schemaBridge={loginSchemaBridge}
       onSubmit={login}
     />
 

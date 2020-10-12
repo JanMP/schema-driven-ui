@@ -21,10 +21,10 @@ getRowsPipeline, getRowCountPipeline})  ->
    
     Meteor.publish "#{sourceName}.count", ({search, query = {}}) ->
       return @ready() unless userWithIdIsInRole id: @userId, role: viewTableRole
+      pipeline = getRowCountPipeline {pub: this, search , query}
       @autorun (computation) ->
-        pipeline = getRowCountPipeline {pub: this, search , query}
         ReactiveAggregate this, collection,
           pipeline,
           clientCollection: "#{sourceName}.count"
-          debounceCount: Infinity
+          debouncCount: 100
           dbounceDelay: 500

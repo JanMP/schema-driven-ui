@@ -1,5 +1,5 @@
 import React, { Children } from 'react';
-import connectField from 'uniforms/connectField';
+import {connectField} from 'uniforms';
 import joinName from 'uniforms/joinName';
 
 

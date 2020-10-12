@@ -1,12 +1,13 @@
 import {Meteor} from 'meteor/meteor'
 import React, {useState, useEffect} from 'react'
 import classnames from 'classnames'
-import connectField from 'uniforms/connectField'
+import {connectField} from 'uniforms'
 import filterDOMProps from 'uniforms/filterDOMProps'
 import { Dropdown, Form } from 'semantic-ui-react'
 
 import _ from 'lodash'
 
+# TODO just kept for reference; delete when SearchQuearyField/Cell is done
 export default connectField ({
   className,
   disabled,

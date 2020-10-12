@@ -1,14 +1,17 @@
-import React from 'react'
-import AutoForm from '../uniforms-react/AutoFormWrapper'
-import AutoField from '../uniforms-react/CustomAutoField'
-import connectField from 'uniforms/connectField'
+import React, {useEffect, useState} from 'react'
+import AutoForm from '../uniforms-react/AutoForm'
+import AutoField from '../uniforms-react/AutoField'
+import {connectField} from 'uniforms'
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2'
 import _ from 'lodash'
 
 #Todo: find a better place in the file structure for this
-export default DynamicField = ({schema, fieldName, label, value, onChange, validate}) ->
+export default DynamicField = ({schemaBridge, fieldName, label, value, onChange, validate, mayEdit}) ->
     
   value ?= null
   onChange ?= (value) -> console.log 'onChange:', value
+
+  schemaBridgeForFieldName = new SimpleSchema2Bridge schemaBridge?.schema.pick fieldName
 
   onClick = (e) ->
     e.stopPropagation()
@@ -21,11 +24,11 @@ export default DynamicField = ({schema, fieldName, label, value, onChange, valid
 
   <div onClick={onClick}>
     <AutoForm
-      schema={schema.pick fieldName}
+      schema={schemaBridgeForFieldName}
       model={"#{fieldName}": value}
       onChangeModel={handleChange}
       validate={validate}
     >
-      <AutoField name={fieldName} label={label}/>
+      <AutoField name={fieldName} label={label} disabled={not mayEdit}/>
     </AutoForm>
   </div>

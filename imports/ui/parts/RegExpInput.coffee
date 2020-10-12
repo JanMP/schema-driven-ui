@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import classnames from 'classnames'
-import connectField from 'uniforms/connectField'
+import {connectField} from 'uniforms'
 import filterDOMProps from 'uniforms/filterDOMProps'
 import { Input, Form } from 'semantic-ui-react'
 
