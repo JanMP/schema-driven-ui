@@ -107,6 +107,7 @@ data, contentClass, contentWrapper, toolbar, style, error, disabled, mayEdit = t
             split='horizontal'
             minSize={0}
             maxSize={contentContainerHeight}
+            defaultSize={contentContainerHeight/2}
             style={height: '100%', width: '100%', position: 'absolute'}
           >
             {markdownDisplay}
