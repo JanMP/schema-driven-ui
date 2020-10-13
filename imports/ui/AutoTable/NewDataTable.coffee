@@ -7,6 +7,7 @@ import {
 } from 'react-virtualized'
 import Draggable from 'react-draggable'
 import {useDebounce} from '@react-hook/debounce'
+import {useThrottle} from '@react-hook/throttle'
 import useSize from '@react-hook/size'
 import _ from 'lodash'
 
@@ -16,7 +17,7 @@ newCache = -> new CellMeasurerCache
   minHeight: 30
   defaultHeight: 200
 
-resizableHeaderRenderer = ({onResizeRows}) ->
+resizableHeaderRenderer = ({onResizeRows, isLastOne}) ->
   ({columnData, dataKey, disableSort, label, sortBy, sortDirection}) ->
   
     onDrag = (e, {deltaX}) ->
@@ -29,7 +30,7 @@ resizableHeaderRenderer = ({onResizeRows}) ->
             <Icon name={if sortDirection is 'ASC' then 'sort up' else 'sort down'} />
         }
       </div>
-      <Draggable
+      {<Draggable
         axis="x"
         defaultClassName="DragHandle"
         defaultClassNameDragging="DragHandleActive"
@@ -37,8 +38,8 @@ resizableHeaderRenderer = ({onResizeRows}) ->
         position={x: 0}
         zIndex={999}
       >
-        <span className="DragHandleIcon">⋮</span>
-      </Draggable>
+        <span/>
+      </Draggable> unless isLastOne}
     </React.Fragment>
 
 
@@ -74,13 +75,15 @@ deleteButtonCellRenderer = ({onDelete = ->}) ->
       if (id = rowData?._id ? rowData?.id)?
         onDelete {id}
 
-    <Button
-      circular
-      negative
-      size="tiny"
-      icon="trash"
-      onClick={onClick}
-    />
+    <div style={paddingTop: '6px', textAlign: 'right'}>
+      <Button
+        circular
+        negative
+        size="tiny"
+        icon="trash"
+        onClick={onClick}
+      />
+    </div>
 
 
 SearchInput = ({value, onChange}) ->
@@ -114,13 +117,17 @@ SearchInput = ({value, onChange}) ->
 export default NewDataTable = ({
   name,
   schemaBridge,
-  rows, limit, totalRowCount, loadMoreRows = (args...) -> console.log "loadMoreRows default stump called with arguments:", args...
-  useSort, sortColumn, sortDirection, onChangeSort = (args...) -> console.log "onChangeSort default stump called with arguments:", args...
-  canSearch, search, onChangeSearch = (args...) -> console.log "onChangeSearch default stump called with arguments:", args...
+  rows, limit, totalRowCount,
+  loadMoreRows = (args...) -> console.log "loadMoreRows default stump called with arguments:", args...
+  useSort, sortColumn, sortDirection,
+  onChangeSort = (args...) -> console.log "onChangeSort default stump called with arguments:", args...
+  canSearch, search,
+  onChangeSearch = (args...) -> console.log "onChangeSearch default stump called with arguments:", args...
   isLoading
   canAdd, onAdd = (args...) -> console.log "onAdd default stump called with arguments:", args...
   canDelete, onDelete = (args...) -> console.log "onDelete default stump called with arguments:", args...
-  canEdit, mayEdit, onChangeField = (args...) -> console.log "onChangeField default stump called with arguments:", args...
+  canEdit, mayEdit,
+  onChangeField = (args...) -> console.log "onChangeField default stump called with arguments:", args...
   onRowClick
   canExport, onExportTable = (args...) -> console.log "onExportTable default stump called with arguments:", args...
   mayExport
@@ -169,7 +176,7 @@ export default NewDataTable = ({
   [columnWidths, setColumnWidths] = useState getColumnWidthsFromLocalStorage() ? initialColumnWidths
   totalColumnsWidth = contentContainerWidth - if canDelete then deleteColumnWidth else 0
 
-  [debouncedResetTrigger, setDebouncedResetTrigger] = useDebounce 0, 100
+  [debouncedResetTrigger, setDebouncedResetTrigger] = useThrottle 0, 30
 
   onResizeRows = ({dataKey, deltaX}) ->
     prevWidths = columnWidths
@@ -218,14 +225,13 @@ export default NewDataTable = ({
       options = schemaForKey.AutoTable ? {}
       isLastOne = i is arr.length-1
       className = if options.overflow then 'overflow'
-      headerRenderer = resizableHeaderRenderer({onResizeRows}) unless isLastOne
+      headerRenderer = resizableHeaderRenderer({onResizeRows, isLastOne}) #unless isLastOne
       <Column
         className={className}
         key={key}
         dataKey={key}
         label={schemaForKey.label}
         width={columnWidths[i] * totalColumnsWidth}
-        
         cellRenderer={cellRenderer {schemaBridge, onChangeField, mayEdit, cache: cacheRef.current}}
         headerRenderer={headerRenderer}
       />
