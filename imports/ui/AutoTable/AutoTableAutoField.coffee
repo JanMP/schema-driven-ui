@@ -28,7 +28,7 @@ export default AutoTableAutoField = ({row, columnKey, schemaBridge, onChangeFiel
           row[columnKey]?.map (entry, i) ->
             <div key={i} style={whiteSpace: 'normal', marginBottom: '.2rem'}>{entry}</div>
         else
-          row[columnKey] ? null
+          <div style={whiteSpace: 'normal'}>{row[columnKey]}</div>
 
   <div style={style}>{inner}</div>
     
