@@ -232,7 +232,7 @@ export default MeteorDataAutoTable = (props) ->
         toast.error "Fehler (siehe console.log)"
 
   <AutoEditTable {{
-    name: sourceName
+    name: sourceName,
     listSchemaBridge, formSchemaBridge
     rows, totalRowCount, loadMoreRows, onRowClick,
     sortColumn, sortDirection, onChangeSort, useSort
