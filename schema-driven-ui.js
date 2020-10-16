@@ -6,7 +6,7 @@ export {default as AppRouter} from './imports/ui/Desktop/AppRouter';
 export {default as QueryEditor} from  './imports/ui/QueryEditor/QueryEditor'
 export {getNewBlock} from './imports/ui/QueryEditor/queryEditorHelpers'
 export {default as queryUiObjectToQuery} from './imports/ui/QueryEditor/queryUiObjectToQuery'
-// export {default as TextArea} from './imports/ui/uniforms-react/CustomTextArea'
+export {default as TextArea} from './imports/ui/uniforms-react/LongTextField'
 export {default as AutoForm} from './imports/ui/uniforms-react/AutoForm'
 export {default as AutoField} from './imports/ui/uniforms-react/AutoField'
 export {default as WindowContainer} from './imports/ui/WindowGrid/WindowContainer'
