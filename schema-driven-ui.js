@@ -15,6 +15,7 @@ export {default as meteorApply} from './imports/helpers/meteorApply'
 export {default as MeteorDataAutoTable} from './imports/ui/AutoTable/MeteorDataAutoTable';
 export {default as MeteorMethodButton} from './imports/ui/parts/MeteorMethodButton'
 export {default as QueryEditor} from  './imports/ui/QueryEditor/QueryEditor'
+export {default as QueryEditorField} from  './imports/ui/QueryEditor/QueryEditorField'
 export {default as queryUiObjectToQuery} from './imports/ui/QueryEditor/queryUiObjectToQuery'
 export {default as SearchQueryCell} from './imports/ui/parts/SearchQueryCell'
 export {default as SearchQueryField} from './imports/ui/parts/SearchQueryField'
