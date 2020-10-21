@@ -13,8 +13,8 @@ export default QueryEditor = React.memo ({schema, rule, path, onChange, attached
 
   bridge = new Bridge schema, ->
 
-  rule ?= getNewBlock {bridge, path: '', type: 'logicBlock'}
   path ?= ''
+  rule ?= getNewBlock {bridge, path, type: 'logicBlock'}
 
   deleteMarkedPartsOf = (theRule) ->
     traverse = (part) ->

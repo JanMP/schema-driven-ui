@@ -118,8 +118,8 @@ export default QueryBlockEditor = React.memo ({rule, partIndex, bridge, path, on
           }
         >
           <div>
-            { #TODO Find a way to change the text
-              if isRoot then <span style={marginRight: '1rem'}>Finde ein Dokument, das</span>
+            {
+            # if isRoot then <span style={marginRight: '1rem'}>Finde ein Dokument, das</span>
             }
             <Select
               value={conjunction}

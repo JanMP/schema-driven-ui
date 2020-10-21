@@ -20,7 +20,6 @@ logicConjunctionSelectOptions =
       context: value.context?.key ? null
   .value()
 
-#TODO Check if we need bridge (also in subjects)
 export getConjunctionData = ({bridge, path, type}) ->
   if type is 'logicBlock'
     return logicConjunctionSelectOptions
