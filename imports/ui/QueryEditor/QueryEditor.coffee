@@ -9,7 +9,7 @@ import _ from 'lodash'
 
 import testRule from './testRule'
 
-export default QueryEditor = React.memo ({schema, rule, path, onChange, attached = false}) ->
+export default QueryEditor = React.memo ({schema, rule, path, onChange}) ->
 
   bridge = new Bridge schema, ->
 

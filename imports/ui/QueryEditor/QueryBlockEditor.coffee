@@ -109,7 +109,7 @@ export default QueryBlockEditor = React.memo ({rule, partIndex, bridge, path, on
 
 
   if isBlock
-    <React.Fragment>
+    <>
       <div className={"query-block #{blockTypeClass}"}>
         <div className="block-header"
           style={
@@ -118,9 +118,6 @@ export default QueryBlockEditor = React.memo ({rule, partIndex, bridge, path, on
           }
         >
           <div>
-            {
-            # if isRoot then <span style={marginRight: '1rem'}>Finde ein Dokument, das</span>
-            }
             <Select
               value={conjunction}
               options={conjunctionSelectOptions}
@@ -153,7 +150,7 @@ export default QueryBlockEditor = React.memo ({rule, partIndex, bridge, path, on
         </div>
         <div>{children}</div>
       </div>
-    </React.Fragment>
+    </>
   else if rule.type is 'sentence'
     <QuerySentenceEditor
       rule={rule}
