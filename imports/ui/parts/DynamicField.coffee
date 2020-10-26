@@ -6,12 +6,14 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2'
 import _ from 'lodash'
 
 #Todo: find a better place in the file structure for this
-export default DynamicField = ({schemaBridge, fieldName, label, value, onChange, validate, mayEdit}) ->
-    
+export default DynamicField = ({schemaBridge, fieldName, label, value, onChange, validate, mayEdit = true}) ->
+
+  return null unless schemaBridge?.schema? and fieldName?
+
   value ?= null
   onChange ?= (value) -> console.log 'onChange:', value
 
-  schemaBridgeForFieldName = new SimpleSchema2Bridge schemaBridge?.schema.pick fieldName
+  schemaBridgeForFieldName = new SimpleSchema2Bridge schemaBridge.schema?.pick fieldName
 
   onClick = (e) ->
     e.stopPropagation()
