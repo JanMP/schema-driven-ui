@@ -3,7 +3,7 @@ import React, { Ref } from 'react';
 import { HTMLFieldProps, connectField, filterDOMProps } from 'uniforms';
 
 const DateConstructor = (typeof global === 'object' ? global : window).Date;
-const dateFormat = (value?: Date) => value?.toISOString().slice(0, -8);
+const dateFormat = (value?: Date) => value?.toISOString?.()?.slice(0, -8);
 
 export type DateFieldProps = HTMLFieldProps<
   Date,
@@ -41,6 +41,7 @@ function Date({
   wrapClassName,
   ...props
 }: DateFieldProps) {
+  console.log(value, typeof value)
   return (
     <div
       className={classnames(className, { disabled, error, required }, 'field')}
