@@ -5,10 +5,22 @@ import AutoField from '../uniforms-react/AutoField'
 
 import { Modal } from 'semantic-ui-react'
 
-export default FormModal = ({trigger, schemaBridge, onSubmit, model, open, onClose, header, children, disabled = false, readOnly = false}) ->
+onValidate = (args...) -> console.log 'onValidate', {args}
+
+export default FormModal = ({trigger, schemaBridge, onSubmit, model,
+open, onClose, header, children, disabled = false, readOnly}) ->
+
   <Modal trigger={trigger} open={open} onClose={onClose} dimmer='blurring'>
     {if header? then <Modal.Header> {header} </Modal.Header>}
     <Modal.Content style={padding: '3rem'}>
-      <AutoForm schema={schemaBridge} onSubmit={onSubmit} model={model} children={children} disabled={disabled} readOnly={readOnly}/>
+      <AutoForm
+        schema={schemaBridge}
+        onSubmit={onSubmit}
+        model={model}
+        children={children}
+        disabled={disabled}
+        validate="onChange"
+        onValidate={onValidate}
+      />
     </Modal.Content>
   </Modal>

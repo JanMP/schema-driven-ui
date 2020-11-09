@@ -183,7 +183,9 @@ export default MeteorDataAutoTable = (props) ->
       data: d
     .then ->
       getRows()
-    .catch (error) -> console.error error
+    .catch (error) ->
+      toast.error "#{error}"
+      console.log error
 
   loadEditorData = ({id}) ->
     unless id?
