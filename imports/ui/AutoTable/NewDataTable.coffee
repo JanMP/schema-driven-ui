@@ -263,11 +263,11 @@ export default NewDataTable = ({
             <div style={textAlign: 'right'}>
               {
                 if canExport
-                  <Button icon='download' onClick={onExportTable} disabled={not mayExport}/>
+                  <Button  basic circular size="small" icon='download' onClick={onExportTable} disabled={not mayExport}/>
               }
               {
                 if canAdd
-                  <Button size="small" secondary circular basic icon="plus" onClick={onAdd} disabled={not mayEdit}/>
+                  <Button circular basic size="small" icon="plus" onClick={onAdd} disabled={not mayEdit}/>
               }
             </div>
           </Grid.Column>
