@@ -26,9 +26,15 @@ export default AutoTableAutoField = ({row, columnKey, schemaBridge, onChangeFiel
           <Icon name={if row[columnKey] then 'check' else 'close'} />
         when Array
           row[columnKey]?.map (entry, i) ->
-            <div key={i} style={whiteSpace: 'normal', marginBottom: '.2rem'}>{entry}</div>
+            if _.isObject entry
+              <pre>{JSON.stringify row[columnKey], null, 2}</pre>
+            else
+              <div key={i} style={whiteSpace: 'normal', marginBottom: '.2rem'}>{entry}</div>
         else
-          <div style={whiteSpace: 'normal'}>{row[columnKey]}</div>
+          if _.isObject row[columnKey] or _.isArray row[columnKey]
+            <pre>{JSON.stringify row[columnKey], null, 2}</pre>
+          else
+            <div style={whiteSpace: 'normal'}>{row[columnKey]}</div>
 
   <div style={style}>{inner}</div>
     
