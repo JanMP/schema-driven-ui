@@ -75,11 +75,12 @@ deleteButtonCellRenderer = ({onDelete = ->}) ->
       if (id = rowData?._id ? rowData?.id)?
         onDelete {id}
 
-    <div style={paddingTop: '6px', textAlign: 'right'}>
+    <div style={textAlign: 'right'}>
       <Button
         circular
+        basic
         negative
-        size="tiny"
+        size="mini"
         icon="trash"
         onClick={onClick}
       />
@@ -251,6 +252,7 @@ export default NewDataTable = ({
               {
                 if canSearch
                   <SearchInput
+                    size="small"
                     value={search}
                     onChange={onChangeSearch}
                   />
@@ -265,7 +267,7 @@ export default NewDataTable = ({
               }
               {
                 if canAdd
-                  <Button size="small" secondary circular icon="plus" onClick={onAdd} disabled={not mayEdit}/>
+                  <Button size="small" secondary circular basic icon="plus" onClick={onAdd} disabled={not mayEdit}/>
               }
             </div>
           </Grid.Column>
