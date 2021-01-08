@@ -3,7 +3,7 @@ import { ReactiveAggregate } from 'meteor/tunguska:reactive-aggregate'
 import {userWithIdIsInRole} from '../../helpers/roleChecks'
 
 export default publishTableData = ({viewTableRole, sourceName, collection,
-getRowsPipeline, getRowCountPipeline})  ->
+getRowsPipeline, getRowCountPipeline, debounceDelay = 500})  ->
   if Meteor.isServer
   
     unless collection?
@@ -16,8 +16,7 @@ getRowsPipeline, getRowCountPipeline})  ->
         ReactiveAggregate this, collection,
           pipeline,
           clientCollection: "#{sourceName}.rows"
-          debounceCount: Infinity
-          debounceDelay: 500
+          debounceDelay: debounceDelay
    
     Meteor.publish "#{sourceName}.count", ({search, query = {}}) ->
       return @ready() unless userWithIdIsInRole id: @userId, role: viewTableRole
@@ -26,5 +25,4 @@ getRowsPipeline, getRowCountPipeline})  ->
         ReactiveAggregate this, collection,
           pipeline,
           clientCollection: "#{sourceName}.count"
-          debouncCount: 100
-          dbounceDelay: 500
+          dbounceDelay: debounceDelay

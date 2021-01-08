@@ -23,16 +23,16 @@ Npm.depends({
 })
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.10.1');
-  api.use('coffeescript@2.4.1');
-  api.use('coagmano:stylus@2.0.0');
+  api.versionsFrom('1.12');
+  api.use('coffeescript');
+  api.use('coagmano:stylus');
   api.use('ecmascript');
   api.use('typescript');
-  api.use('alanning:roles@3.2.2');
-  api.use('mdg:validated-method@1.2.0');
-  api.use('momentjs:moment@2.28.0');
-  api.use('peerlibrary:reactive-publish@0.6.0')
-  api.use('tunguska:reactive-aggregate@1.3.3');
+  api.use('alanning:roles');
+  api.use('mdg:validated-method');
+  api.use('momentjs:moment');
+  api.use('peerlibrary:reactive-publish')
+  api.use('tunguska:reactive-aggregate');
   api.mainModule('schema-driven-ui.js');
 });
 
