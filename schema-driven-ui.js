@@ -20,6 +20,7 @@ export {default as queryUiObjectToQuery} from './imports/ui/QueryEditor/queryUiO
 export {default as SearchQueryCell} from './imports/ui/parts/SearchQueryCell'
 export {default as SearchQueryField} from './imports/ui/parts/SearchQueryField'
 export {default as TextArea} from './imports/ui/uniforms-react/LongTextField'
+export {default as Timefield} from './imports/ui/parts/TimeField'
 export {default as WindowContainer} from './imports/ui/WindowGrid/WindowContainer'
 export {default as WindowGrid} from './imports/ui/WindowGrid/WindowGrid'
 export {getNewBlock} from './imports/ui/QueryEditor/queryEditorHelpers'

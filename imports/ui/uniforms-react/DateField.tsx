@@ -41,7 +41,6 @@ function Date({
   wrapClassName,
   ...props
 }: DateFieldProps) {
-  console.log(value, typeof value)
   return (
     <div
       className={classnames(className, { disabled, error, required }, 'field')}

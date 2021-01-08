@@ -5,7 +5,7 @@ import AutoField from '../uniforms-react/AutoField'
 
 import { Modal } from 'semantic-ui-react'
 
-onValidate = (args...) -> console.log 'onValidate', {args}
+# onValidate = (args...) -> console.log 'onValidate', {args}
 
 export default FormModal = ({trigger, schemaBridge, onSubmit, model,
 open, onClose, header, children, disabled = false, readOnly}) ->
@@ -20,7 +20,6 @@ open, onClose, header, children, disabled = false, readOnly}) ->
         children={children}
         disabled={disabled}
         validate="onChange"
-        onValidate={onValidate}
       />
     </Modal.Content>
   </Modal>

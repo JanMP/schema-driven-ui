@@ -22,7 +22,8 @@ export default createAutoDataTableBackend = (definition) ->
     listSchema
     getPreSelectPipeline
     pipelineMiddle, getProcessorPipeline, getRowsPipeline, getRowCountPipeline, getExportPipeline
-    redrawTrigger
+    redrawTrigger,
+    debounceDelay
   } = definition
 
   if redrawTrigger?
@@ -76,7 +77,7 @@ export default createAutoDataTableBackend = (definition) ->
     
     publishTableData {
       viewTableRole, sourceName, collection,
-      getRowsPipeline, getRowCountPipeline,
+      getRowsPipeline, getRowCountPipeline, debounceDelay
     }
 
   createTableDataMethods {
