@@ -1,4 +1,4 @@
-import getColumnsToExport from './getColumnsToExport'
+import getColumnsToExport from '../helpers/getColumnsToExport'
 import _ from 'lodash'
 
 export default createDefaultPipeline = ({getPreSelectPipeline, getProcessorPipeline, listSchema}) ->
