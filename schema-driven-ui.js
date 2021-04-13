@@ -1,27 +1,27 @@
 // import queryUiObjectToQuery from './imports/ui/QueryEditor/queryUiObjectToQuery'
-export {currentUserIsInRole, useCurrentUserIsInRole, currentUserMustBeInRole} from './imports/helpers/roleChecks'
-export {default as AppRouter} from './imports/ui/Desktop/AppRouter';
-export {default as AutoEditTable} from './imports/ui/AutoTable/AutoEditTable'
-export {default as AutoField} from './imports/ui/uniforms-react/AutoField'
-export {default as AutoForm} from './imports/ui/uniforms-react/AutoForm'
-export {default as connectWithFormField} from './imports/ui/parts/connectWithFormField'
-export {default as createAutoDataTableBackend} from './imports/ui/AutoTable/createAutoDataTableBackend';
-export {default as DynamicField} from './imports/ui/parts/DynamicField'
-export {default as MarkDownDisplay} from './imports/ui/MarkDownEditor/MarkDownDisplay'
-export {default as MarkDownEditor} from './imports/ui/MarkDownEditor/MarkDownEditor'
-export {default as MarkDownEditorField} from './imports/ui/MarkDownEditor/MarkDownEditorField'
-export {default as markdownWithData} from './imports/ui/MarkDownEditor/markdownWithData'
-export {default as meteorApply} from './imports/helpers/meteorApply'
-export {default as MeteorDataAutoTable} from './imports/ui/AutoTable/MeteorDataAutoTable';
-export {default as MeteorMethodButton} from './imports/ui/parts/MeteorMethodButton'
-export {default as QueryEditor} from  './imports/ui/QueryEditor/QueryEditor'
-export {default as QueryEditorField} from  './imports/ui/QueryEditor/QueryEditorField'
-export {default as queryUiObjectToQuery} from './imports/ui/QueryEditor/queryUiObjectToQuery'
-export {default as SearchQueryCell} from './imports/ui/parts/SearchQueryCell'
-export {default as SearchQueryField} from './imports/ui/parts/SearchQueryField'
-export {default as TextArea} from './imports/ui/uniforms-react/LongTextField'
-export {default as Timefield} from './imports/ui/parts/TimeField'
-export {default as WindowContainer} from './imports/ui/WindowGrid/WindowContainer'
-export {default as WindowGrid} from './imports/ui/WindowGrid/WindowGrid'
-export {getNewBlock} from './imports/ui/QueryEditor/queryEditorHelpers'
-export * from './imports/helpers/simpleSchemaExtension.coffee.md'
+export { currentUserIsInRole, useCurrentUserIsInRole, currentUserMustBeInRole } from './imports/helpers/roleChecks';
+export { default as AppRouter } from './imports/ui/Desktop/AppRouter';
+export { default as AutoEditTable } from './imports/ui/AutoTable/AutoEditTable';
+export { default as AutoField } from './imports/ui/uniforms-react/AutoField';
+export { default as AutoForm } from './imports/ui/uniforms-react/AutoForm';
+export { default as connectWithFormField } from './imports/ui/parts/connectWithFormField';
+export { default as createAutoDataTableBackend } from './imports/api/createAutoDataTableBackend';
+export { default as DynamicField } from './imports/ui/parts/DynamicField';
+export { default as MarkDownDisplay } from './imports/ui/MarkDownEditor/MarkDownDisplay';
+export { default as MarkDownEditor } from './imports/ui/MarkDownEditor/MarkDownEditor';
+export { default as MarkDownEditorField } from './imports/ui/MarkDownEditor/MarkDownEditorField';
+export { default as markdownWithData } from './imports/ui/MarkDownEditor/markdownWithData';
+export { default as meteorApply } from './imports/helpers/meteorApply';
+export { default as MeteorDataAutoTable } from './imports/ui/AutoTable/MeteorDataAutoTable';
+export { default as MeteorMethodButton } from './imports/ui/parts/MeteorMethodButton';
+export { default as QueryEditor } from './imports/ui/QueryEditor/QueryEditor';
+export { default as QueryEditorField } from './imports/ui/QueryEditor/QueryEditorField';
+export { default as queryUiObjectToQuery } from './imports/ui/QueryEditor/queryUiObjectToQuery';
+export { default as SearchQueryCell } from './imports/ui/parts/SearchQueryCell';
+export { default as SearchQueryField } from './imports/ui/parts/SearchQueryField';
+export { default as TextArea } from './imports/ui/uniforms-react/LongTextField';
+export { default as Timefield } from './imports/ui/parts/TimeField';
+export { default as WindowContainer } from './imports/ui/WindowGrid/WindowContainer';
+export { default as WindowGrid } from './imports/ui/WindowGrid/WindowGrid';
+export { getNewBlock } from './imports/ui/QueryEditor/queryEditorHelpers';
+export * from './imports/helpers/simpleSchemaExtension.coffee.md';

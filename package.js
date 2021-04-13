@@ -1,8 +1,8 @@
 Package.describe({
   name: 'janmp:schema-driven-ui',
-  version: '0.5.6',
+  version: '0.6.0',
   // Brief, one-line summary of the package.
-  summary: 'schema driven data tables, for internal use (for now), no documentation (yet)',
+  summary: 'schema driven data tables, a mongodb query react component, a desktop like workspace, for internal use (for now), no documentation (yet)',
   // URL to the Git repository containing the source code for this package.
   git: '',
   // By default, Meteor will default to using README.md for documentation.

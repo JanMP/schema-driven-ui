@@ -1,6 +1,7 @@
 import React from 'react'
 import { Icon } from 'semantic-ui-react'
 import DynamicTableField from './DynamicTableField'
+import _ from 'lodash'
 
 style =
   padding: "4px 0"
