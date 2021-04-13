@@ -24,15 +24,15 @@ Npm.depends({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.12');
-  api.use('coffeescript');
-  api.use('coagmano:stylus');
+  api.use('coffeescript@1.0.17');
+  api.use('coagmano:stylus@1.0.3');
   api.use('ecmascript');
   api.use('typescript');
-  api.use('alanning:roles');
-  api.use('mdg:validated-method');
-  api.use('momentjs:moment');
-  api.use('peerlibrary:reactive-publish')
-  api.use('tunguska:reactive-aggregate');
+  api.use('alanning:roles@1.0.6');
+  api.use('mdg:validated-method@0.2.3');
+  api.use('momentjs:moment@2.8.4');
+  api.use('peerlibrary:reactive-publish@0.1.0')
+  api.use('tunguska:reactive-aggregate@1.0.4');
   api.mainModule('schema-driven-ui.js');
 });
 
